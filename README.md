@@ -17,7 +17,7 @@ graph TD
       hls
       subgraph Interface
         threejs
-        audio
+        janusaudio
       end
     end
 
@@ -30,18 +30,20 @@ graph TD
     meteor --- db
     meteor --- media
     
-    meteor --- svelte
-    audio --- janus
+    meteor ---- svelte
+    janusaudio --- janus
     hls --- streamer
     streamer --- media
 
     svelte --- threejs
     hls --- threejs
 
-    svelte --- audio
+    svelte --- janusaudio
 
     assets -.- media
     scenes -.- meteor
     players -.- svelte
+    
+    camera --- streamer
     
 ```
