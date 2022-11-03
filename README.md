@@ -33,6 +33,7 @@ graph TD
     meteor --- svelte
     audio --- janus
     hls --- streamer
+    streamer --- media
 
     svelte --- threejs
     hls --- threejs
