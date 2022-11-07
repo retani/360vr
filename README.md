@@ -4,7 +4,7 @@
 
 graph TD
 
-    subgraph Server
+    subgraph Containers
       acebase
       janus
       peertube
