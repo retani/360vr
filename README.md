@@ -4,12 +4,10 @@
 
 graph TD
 
-    subgraph Server
-      meteor
-      db
-      media
+    subgraph Containers
+      acebase
       janus
-      streamer
+      peertube
     end
 
     subgraph Client
@@ -25,25 +23,23 @@ graph TD
       scenes
       assets
       players
+      groups
     end
-
-    meteor --- db
-    meteor --- media
     
-    meteor ---- svelte
+    acebase ---- svelte
     janusaudio --- janus
-    hls --- streamer
-    streamer --- media
+    hls --- peertube
 
     svelte --- threejs
     hls --- threejs
 
     svelte --- janusaudio
 
-    assets -.- media
-    scenes -.- meteor
+    assets -.- peertube
+    scenes -.- acebase
     players -.- svelte
+    groups -.- players
     
-    camera --- streamer
+    camera --- peertube
     
 ```
