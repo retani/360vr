@@ -6,33 +6,38 @@
   import * as THREE from 'three';
   //import { VRButton } from 'three/addons/webxr/VRButton.js';
 
-  /*
+  
   onMount(() => {
-    var video = document.getElementById('video');
-    var videoSrc = 'https://rec.stream.intergestalt.cloud/hls/test.m3u8';
-    if (Hls.isSupported()) {
-      var hls = new Hls();
-      hls.loadSource(videoSrc);
-      hls.attachMedia(video);
-    }
-    // HLS.js is not supported on platforms that do not have Media Source
-    // Extensions (MSE) enabled.
-    //
-    // When the browser has built-in HLS support (check using `canPlayType`),
-    // we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video
-    // element through the `src` property. This is using the built-in support
-    // of the plain video element, without using HLS.js.
-    //
-    // Note: it would be more normal to wait on the 'canplay' event below however
-    // on Safari (where you are most likely to find built-in HLS support) the
-    // video.src URL must be on the user-driven white-list before a 'canplay'
-    // event will be emitted; the last video event that can be reliably
-    // listened-for when the URL is not on the white-list is 'loadedmetadata'.
-    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = videoSrc;
-    }
+    import('hls.js').then(Hls => {
+      var video = document.getElementById('video');
+      var videoSrc = 'https://tube.kh-berlin.de/static/streaming-playlists/hls/8d09e932-b03b-40f1-8d6a-7a4554a4b9d7/master.m3u8';
+      // https://tube.kh-berlin.de/videos/watch/8d09e932-b03b-40f1-8d6a-7a4554a4b9d7
+      // https://rec.stream.intergestalt.cloud/hls/test.m3u8
+      console.log(Hls)
+      if (Hls.isSupported()) {
+        var hls = new Hls.default();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+      }
+      // HLS.js is not supported on platforms that do not have Media Source
+      // Extensions (MSE) enabled.
+      //
+      // When the browser has built-in HLS support (check using `canPlayType`),
+      // we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video
+      // element through the `src` property. This is using the built-in support
+      // of the plain video element, without using HLS.js.
+      //
+      // Note: it would be more normal to wait on the 'canplay' event below however
+      // on Safari (where you are most likely to find built-in HLS support) the
+      // video.src URL must be on the user-driven white-list before a 'canplay'
+      // event will be emitted; the last video event that can be reliably
+      // listened-for when the URL is not on the white-list is 'loadedmetadata'.
+      else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoSrc;
+      }
+    })
   });
-  */
+  
   
   let camera, scene, renderer;
 

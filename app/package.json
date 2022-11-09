@@ -26,6 +26,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"hls.js": "^1.2.5",
+		"janus-gateway-js": "^2.0.2",
 		"three": "^0.146.0"
 	}
 }
