@@ -16,6 +16,6 @@ services:
       - "7088:7088"
       - "7089:7089"
     volumes:
-      #- "./etc/janus/janus.jcfg:/usr/local/etc/janus/janus.jcfg"
+      - "./etc/janus/janus.jcfg.live:/usr/local/etc/janus/janus.jcfg"
       - "./etc/janus/janus.plugin.audiobridge.jcfg:/usr/local/etc/janus/janus.plugin.audiobridge.jcfg"
     restart: always
