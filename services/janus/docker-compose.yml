@@ -12,10 +12,21 @@ services:
       - "8089:8089"
       - "8889:8889"
       - "8000:8000"
-      - "8188:8188"
+        #- "8188:8188"
       - "7088:7088"
       - "7089:7089"
+    expose:
+      - 8188
     volumes:
-      #- "./etc/janus/janus.jcfg:/usr/local/etc/janus/janus.jcfg"
+      - "./etc/janus/janus.jcfg.live:/usr/local/etc/janus/janus.jcfg"
       - "./etc/janus/janus.plugin.audiobridge.jcfg:/usr/local/etc/janus/janus.plugin.audiobridge.jcfg"
+    networks:
+      - proxy
     restart: always
+    labels:
+      caddy: 360vr.intergestalt.cloud
+      caddy.reverse_proxy: "{{upstreams 8188}}"
+
+networks:
+  proxy:
+    external: true

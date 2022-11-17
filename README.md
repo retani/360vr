@@ -4,13 +4,13 @@
 
 graph TD
 
-    subgraph Containers
+    subgraph Services
       acebase
       janus
       peertube
     end
 
-    subgraph Client
+    subgraph App
       svelte
       hls
       subgraph Interface
@@ -19,7 +19,7 @@ graph TD
       end
     end
 
-    subgraph Controller
+    subgraph Admin
       scenes
       assets
       players
