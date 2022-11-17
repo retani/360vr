@@ -13,7 +13,8 @@
   const audioStatus      = getContext('audioStatus');
 
   //const janusServer = 'ws://localhost:8188'
-  const janusServer = 'ws://360vr.intergestalt.cloud:8188'
+  //const janusServer = 'ws://360vr.intergestalt.cloud:8188'
+  const janusServer = 'wss://360vr.intergestalt.cloud'
 
   onMount(async () => {
     try {
