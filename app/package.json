@@ -26,6 +26,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/adapter-node": "^1.0.0-next.100",
 		"hls.js": "^1.2.5",
 		"janus-gateway-js": "^2.0.2",
 		"three": "^0.146.0"

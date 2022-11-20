@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  caddy:
+    build: 
+      context: ../../app
+    expose:
+      - 3000
+    networks:
+      - proxy
+    restart: unless-stopped
+    labels:
+      caddy: 360vr.intergestalt.cloud
+      caddy.reverse_proxy: "{{upstreams 3000}}"
+
+networks:
+  proxy:
+    external: true
