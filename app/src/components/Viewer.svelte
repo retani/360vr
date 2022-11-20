@@ -10,7 +10,7 @@
   onMount(() => {
     import('hls.js').then(Hls => {
       var video = document.getElementById('video');
-      var videoSrc = "https://tube.kh-berlin.de/videos/watch/5db24246-3f3b-4303-b472-8d851bfe3c6f"
+      var videoSrc = "https://tube.kh-berlin.de/static/streaming-playlists/hls/5db24246-3f3b-4303-b472-8d851bfe3c6f/master.m3u8"
       // https://tube.kh-berlin.de/static/streaming-playlists/hls/58f28745-1a9b-47e2-9d45-f2c40b05cb6c/master.m3u8
       // https://tube.kh-berlin.de/videos/watch/8d09e932-b03b-40f1-8d6a-7a4554a4b9d7
       // https://rec.stream.intergestalt.cloud/hls/test.m3u8

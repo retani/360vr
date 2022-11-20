@@ -13,10 +13,10 @@ RUN npm run build
 #RUN npm prune --production
 
 # second stage
-FROM node:16-alpine
+#FROM node:16-alpine
 
-WORKDIR /app
-COPY --from=0 /app/build ./build
+#WORKDIR /app
+#COPY --from=0 /app/build ./build
 # COPY --from=0 /app/node_modules ./node_modules
 
 EXPOSE 3000
