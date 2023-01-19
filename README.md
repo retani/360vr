@@ -5,7 +5,7 @@
 graph TD
 
     subgraph Services
-      acebase
+      meteor
       janus
       peertube
     end
@@ -23,10 +23,10 @@ graph TD
       scenes
       assets
       players
-      groups
+      channels
     end
     
-    acebase ---- svelte
+    meteor ---- svelte
     janusaudio --- janus
     hls --- peertube
 
@@ -36,9 +36,9 @@ graph TD
     svelte --- janusaudio
 
     assets -.- peertube
-    scenes -.- acebase
+    scenes -.- meteor
     players -.- svelte
-    groups -.- players
+    channels -.- players
     
     camera --- peertube
     

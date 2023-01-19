@@ -1,0 +1,13 @@
+:root {
+  background-color: black;
+  color: white;
+}
+
+body {
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+a {
+  border-bottom: 1px dotted white;
+}
