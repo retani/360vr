@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Assets, Channels, Globals } from '/imports/api/collections';
-import { defaultChannels, defaultAssets } from '/imports/api/seeds';
+import { defaultChannels, defaultAssets, channelTemplate } from '/imports/api/seeds';
 
 import '/imports/api/methods';
 import '/imports/api/publications';
@@ -16,7 +16,10 @@ Meteor.startup(async () => {
   if (Channels.find().count() === 0) {
     console.log("Seeding channels");
     for (let channel of defaultChannels) {
-      Channels.insert(channel);
+      Channels.insert({
+        ...channelTemplate,
+        ...channel
+      });
     }
   }
 

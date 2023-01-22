@@ -9,8 +9,10 @@ services:
       - proxy
     restart: unless-stopped
     labels:
-      caddy: 360vr.intergestalt.cloud
+      caddy: ${CLIENT_URL}
       caddy.reverse_proxy: "{{upstreams 3000}}"
+    environment:
+      - PUBLIC_ENDPOINT=${METEOR_WEBSOCKET_URL}
 
 networks:
   proxy:

@@ -25,10 +25,15 @@
 		"vite": "^3.1.0"
 	},
 	"type": "module",
+	"engines": {
+		"node": "18"},
 	"dependencies": {
 		"@sveltejs/adapter-node": "^1.0.0-next.100",
 		"hls.js": "^1.2.5",
+		"isomorphic-ws": "^5.0.0",
 		"janus-gateway-js": "^2.0.2",
-		"three": "^0.146.0"
+		"simpleddp": "^2.2.4",
+		"three": "^0.146.0",
+		"ws": "^8.12.0"
 	}
 }

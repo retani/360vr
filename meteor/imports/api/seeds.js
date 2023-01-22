@@ -16,6 +16,10 @@ export const defaultChannels = [
   }
 ];
 
+export const channelTemplate = {
+  layers: []
+}
+
 export const defaultAssets = [
   {
     type: 'video', // audio, video, image
@@ -23,7 +27,7 @@ export const defaultAssets = [
     name: '360 Video URL m3u8',
     url: "https://tube.kh-berlin.de/static/streaming-playlists/hls/5db24246-3f3b-4303-b472-8d851bfe3c6f/master.m3u8",
     hasVideo: true,
-    hasAudio: true,
+    hasAudio: false,
   },
   {
     type: 'janusaudio',

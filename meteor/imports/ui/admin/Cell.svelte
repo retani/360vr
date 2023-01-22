@@ -15,22 +15,39 @@
   }
 
   const onClickPlay = () => Meteor.call("startPlay", { assetId: asset._id, channelId: channel._id })
+  const onClickPause = () => Meteor.call("pausePlay", { assetId: asset._id, channelId: channel._id })
   const onClickStop = () => Meteor.call("stopPlay", { assetId: asset._id, channelId: channel._id })
+  const onClickLoad = () => Meteor.call("loadAssetToChannel", { assetId: asset._id, channelId: channel._id })
   
 </script>
 
-<div class="container" class:playing={state?.playing}>
-  {#if !state || !state.playing }
-    <button on:click={onClickPlay}>
+<div class="container" class:playing={state?.playing} class:loaded={loadedAsset}>
+  {#if !loadedAsset}
+    <div class="button">
+      <button on:click={onClickLoad}>
+        Load
+      </button>
+    </div>
+  {/if}
+
+  {#if loadedAsset && !state.playing}
+    <button class="icon" on:click={onClickStop}>
+      ⏹️
+    </button>
+  {/if}
+
+  {#if loadedAsset && !state.playing }
+    <button class="icon" on:click={onClickPlay}>
       ▶️
     </button>
   {/if}
   
-  {#if state && state.playing}
-    <button on:click={onClickStop}>
-      ⏹️
+  {#if loadedAsset && state.playing}
+    <button class="icon" on:click={onClickPause}>
+      ⏸️
     </button>
   {/if}
+
 </div>
 
 <style>
@@ -40,9 +57,24 @@
     display: flex;
     justify-content: center;
     align-items: stretch;
-    background: radial-gradient(circle, #888 0%, transparent 65%);
-
   }
+  .container.loaded {
+    background: radial-gradient(circle, #888 0%, transparent 65%);
+  }
+
+  .button button {
+    border: revert;
+    padding: 0.2em;
+  }
+
+  button {
+    margin: 2px;
+  }
+
+  .icon {
+    transform: scale(1.25);
+  }
+
   .playing {
     /* yellow radial gradient */
     position: relative;

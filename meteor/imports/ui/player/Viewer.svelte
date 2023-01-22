@@ -1,20 +1,16 @@
 <script>
-  // @ts-nocheck
+// @ts-nocheck
+
   import { onMount } from 'svelte';
   // import threejs
   import * as THREE from 'three';
   //import { VRButton } from 'three/addons/webxr/VRButton.js';
 
-  export let asset;
-  export let state;
-
-  $: paused = !state.playing;
-
   
   onMount(() => {
     import('hls.js').then(Hls => {
       var video = document.getElementById('video');
-      var videoSrc = asset.url;
+      var videoSrc = "https://tube.kh-berlin.de/static/streaming-playlists/hls/5db24246-3f3b-4303-b472-8d851bfe3c6f/master.m3u8"
       // https://tube.kh-berlin.de/static/streaming-playlists/hls/58f28745-1a9b-47e2-9d45-f2c40b05cb6c/master.m3u8
       // https://tube.kh-berlin.de/videos/watch/8d09e932-b03b-40f1-8d6a-7a4554a4b9d7
       // https://rec.stream.intergestalt.cloud/hls/test.m3u8
@@ -80,7 +76,7 @@
     geometry.scale( - 1, 1, 1 );
 
     const video = document.getElementById( 'video' );
-    //video.play();
+    video.play();
 
     const texture = new THREE.VideoTexture( video );
     const material = new THREE.MeshBasicMaterial( { map: texture } );
@@ -96,9 +92,9 @@
     renderer.xr.setReferenceSpaceType('local');
     container.appendChild( renderer.domElement );
 
-    // container.addEventListener('click', function () {
-    //   video.play();
-    // });
+    container.addEventListener('click', function () {
+      video.play();
+    });
 
     //
     //document.body.appendChild(VRButton.createButton(renderer));
@@ -128,13 +124,7 @@
 
 <div id="container"></div>
 
-<video id="video" loop muted crossOrigin="anonymous" playsinline style="display:none" bind:paused >
+<video id="video" loop muted crossOrigin="anonymous" playsinline style="display:none">
   <source src="https://threejs.org/examples/textures/pano.webm">
   <source src="https://threejs.org/examples/textures/pano.mp4">
 </video>
-
-<style>
-  video {
-    width: 100%;
-  }
-</style>

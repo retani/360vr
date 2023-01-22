@@ -19,6 +19,14 @@ Meteor.methods({
     const channel = Channels.findOne(channelId)
     const asset = Assets.findOne(assetId)
 
+    if (!channel) {
+      throw new Meteor.Error('Channel not found');
+    }
+
+    if (!asset) {
+      throw new Meteor.Error('Asset not found');
+    }
+
     layer = {
       _id: asset._id,
       asset,
@@ -64,6 +72,15 @@ Meteor.methods({
       assetId,
       key:"playing", 
       value: true
+    });
+  },
+
+  async pausePlay({channelId, assetId}) {
+    await Meteor.call('updateLayerState', {
+      channelId, 
+      assetId,
+      key:"playing", 
+      value: false
     });
   },
 
