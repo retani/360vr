@@ -30,9 +30,19 @@ export const defaultAssets = [
     hasAudio: false,
   },
   {
+    type: 'video', // audio, video, image
+    //locationType: 'url', // url, file
+    name: 'Amagamma 360',
+    //"https://tube.kh-berlin.de/videos/embed/6000af6b-13c2-4644-8315-6b6a6c6bc6c4"
+    url: "https://tube.kh-berlin.de/static/streaming-playlists/hls/6000af6b-13c2-4644-8315-6b6a6c6bc6c4/master.m3u8",
+    hasVideo: true,
+    hasAudio: false,
+  },
+  {
     type: 'janusaudio',
     name: 'Audio Conference 1',
     url: "wss://360vr.intergestalt.cloud",
+    apisecret: "secret",
     hasMicrophone: true,
     hasAudio: true,
   }

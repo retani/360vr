@@ -5,21 +5,25 @@
   import { getContext } from 'svelte';
   import * as Janus from 'janus-gateway-js';
 
+  export let asset
+  export let state
+
   let audioElem = null
 
-  const audioPaused      = getContext('audioPaused');
+  $: paused =  state ? !state.playing : true
+
   const audioVolume      = getContext('audioVolume');
   const audioCurrentTime = getContext('audioCurrentTime');
   const audioStatus      = getContext('audioStatus');
 
   //const janusServer = 'ws://localhost:8188'
   //const janusServer = 'ws://360vr.intergestalt.cloud:8188'
-  const janusServer = 'wss://360vr.intergestalt.cloud'
+  const janusServer = asset.url
 
   onMount(async () => {
     try {
       $audioStatus = 'connecting'
-      const janus = new Janus.Client(janusServer, { keepalive: true, apisecret: 'secret' });
+      const janus = new Janus.Client(janusServer, { keepalive: true, apisecret: asset.apisecret });
       const connection = await janus.createConnection();
       $audioStatus = 'connected'
       const session = await connection.createSession();
@@ -32,7 +36,7 @@
           console.log(audioElem);
           audioElem.srcObject = new MediaStream(message.streams[0]);
           $audioStatus = "stream attached"
-          audioElem.play();
+          //audioElem.play();
           //Janus.attachMediaStream(audioElem, message.streams[0]);
         }
       });
@@ -48,7 +52,7 @@
 
 <audio 
   bind:this={audioElem} 
-  bind:paused={$audioPaused}
+  bind:paused={paused}
   bind:volume={$audioVolume}
   bind:currentTime={$audioCurrentTime}
   class="rounded centered" 

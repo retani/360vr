@@ -23,7 +23,9 @@
 {#if videoLayer}
   <Viewer asset={videoLayer.asset} state={videoLayer.state} />
 {/if}
-<Audiostream />
+{#if janusLayer}
+  <Audiostream asset={janusLayer.asset} state={janusLayer.state}/>
+{/if}
 
 <style>
   .PlayerStatus {
