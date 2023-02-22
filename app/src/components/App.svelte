@@ -13,7 +13,7 @@
   const channel = getContext('channel');
 
   $: videoLayer = $channel && $channel.layers && $channel.layers.find(layer => layer?.asset.type == 'video');
-  $: janusLayer = $channel && $channel.layers && $channel.layers.find(layer => layer?.asset.type == 'janusaudio');
+  $: janusLayers = $channel && $channel.layers && $channel.layers.filter(layer => layer?.asset.type == 'janusaudio') || [];
 </script>
 
 <Connection {slug} {endpoint}/>
@@ -23,9 +23,9 @@
 {#if videoLayer}
   <Viewer asset={videoLayer.asset} state={videoLayer.state} />
 {/if}
-{#if janusLayer}
+{#each janusLayers as janusLayer}
   <Audiostream asset={janusLayer.asset} state={janusLayer.state}/>
-{/if}
+{/each}
 
 <style>
   .PlayerStatus {

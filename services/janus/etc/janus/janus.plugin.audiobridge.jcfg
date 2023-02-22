@@ -73,8 +73,35 @@ general: {
 
 }
 
-room-1234: {
-	description = "Demo Room"
+room-1001: {
+	description = "Demo Room 1001"
+	secret = "adminpwd"
+	sampling_rate = 16000
+	record = false
+	#record_dir = "/path/to/"
+	#record_file = "recording.wav"
+}
+
+room-1002: {
+	description = "Demo Room 1002"
+	secret = "adminpwd"
+	sampling_rate = 16000
+	record = false
+	#record_dir = "/path/to/"
+	#record_file = "recording.wav"
+}
+
+room-1003: {
+	description = "Demo Room 1003"
+	secret = "adminpwd"
+	sampling_rate = 16000
+	record = false
+	#record_dir = "/path/to/"
+	#record_file = "recording.wav"
+}
+
+room-1004: {
+	description = "Demo Room 1004"
 	secret = "adminpwd"
 	sampling_rate = 16000
 	record = false

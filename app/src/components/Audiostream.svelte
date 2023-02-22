@@ -19,6 +19,7 @@
   //const janusServer = 'ws://localhost:8188'
   //const janusServer = 'ws://360vr.intergestalt.cloud:8188'
   const janusServer = asset.url
+  const room = asset.room
 
   onMount(async () => {
     try {
@@ -36,11 +37,11 @@
           console.log(audioElem);
           audioElem.srcObject = new MediaStream(message.streams[0]);
           $audioStatus = "stream attached"
-          //audioElem.play();
+          if (!paused) audioElem.play();
           //Janus.attachMediaStream(audioElem, message.streams[0]);
         }
       });
-      const resp = await plugin.join(1234, { display: "Name", quality: 3, token: 'token' });
+      const resp = await plugin.join(room, { display: "Name", quality: 3, token: 'token' });
       const stream = await plugin.getUserMedia({ audio: true, video: false });
       const response = await plugin.offerStream(stream);
     } catch (err) {
@@ -55,8 +56,4 @@
   bind:paused={paused}
   bind:volume={$audioVolume}
   bind:currentTime={$audioCurrentTime}
-  class="rounded centered" 
-  id="roomaudio" 
-  width="100%" 
-  height="100%" 
 />
