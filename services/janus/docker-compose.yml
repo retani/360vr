@@ -24,7 +24,7 @@ services:
       - proxy
     restart: always
     labels:
-      caddy: 360vr.intergestalt.cloud
+      caddy: janus.360vr.intergestalt.cloud
       caddy.reverse_proxy: "{{upstreams 8188}}"
 
 networks:
