@@ -58,8 +58,24 @@ Prerequisites:
 3. configure variables in `.env`
     - `cd deploy`
     - `cp .env.example .env`
-    - edit `.env`
-4. start services
+    - edit `.env
+4. configure janus
+    - set public ip in `nat_1_1_mapping` in `janus/etc/janus/janus.jcfg.live`, see https://towardsaws.com/setting-up-janus-webrtc-on-aws-a8aa8914b0c6`
+5. start services
     - `cd deploy`
     - `docker compose build`
     - `docker compose up -d`
+
+### optional: use coturn
+
+In order to be independent from google you can setup your own TURN server:
+
+```
+docker run -d --network=host \
+           -e DETECT_EXTERNAL_IP=yes \
+           -e DETECT_RELAY_IP=yes \
+           coturn/coturn \
+           -n --log-file=stdout
+```
+
+and adjust 2 lines in `janus/etc/janus/janus.jcfg.live`

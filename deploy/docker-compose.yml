@@ -37,7 +37,7 @@ services:
       caddy.reverse_proxy: "{{upstreams 8188}}"    
   meteor:
     build: 
-      context: ../meteor
+      context: ../server
     expose:
       - 3000
     networks:
@@ -65,7 +65,7 @@ services:
       ALLOW_EMPTY_PASSWORD: "yes"    
   app:
     build: 
-      context: ../app
+      context: ../client
     expose:
       - 3000
     networks:
