@@ -41,7 +41,7 @@ export const defaultAssets = [
   {
     type: 'janusaudio',
     name: 'Audio Conference 1 (1001)',
-    url: "wss://360vr.intergestalt.cloud",
+    url: "wss://janus.360vr.intergestalt.cloud",
     room: 1001,
     apisecret: "secret",
     hasMicrophone: true,
@@ -50,7 +50,7 @@ export const defaultAssets = [
   {
     type: 'janusaudio',
     name: 'Audio Conference 2 (1002)',
-    url: "wss://360vr.intergestalt.cloud",
+    url: "wss://janus.360vr.intergestalt.cloud",
     room: 1002,
     apisecret: "secret",
     hasMicrophone: true,
@@ -59,7 +59,7 @@ export const defaultAssets = [
   {
     type: 'janusaudio',
     name: 'Audio Conference 3 (1003)',
-    url: "wss://360vr.intergestalt.cloud",
+    url: "wss://janus.360vr.intergestalt.cloud",
     room: 1003,
     apisecret: "secret",
     hasMicrophone: true,
@@ -68,7 +68,7 @@ export const defaultAssets = [
   {
     type: 'janusaudio',
     name: 'Audio Conference 4 (1004)',
-    url: "wss://360vr.intergestalt.cloud",
+    url: "wss://janus.360vr.intergestalt.cloud",
     room: 1004,
     apisecret: "secret",
     hasMicrophone: true,
