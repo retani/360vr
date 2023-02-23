@@ -84,3 +84,4 @@ networks:
 
 volumes:
   caddy_data: {}
+  db-data: {}
