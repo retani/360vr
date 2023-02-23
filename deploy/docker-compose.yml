@@ -37,7 +37,7 @@ services:
       caddy.reverse_proxy: "{{upstreams 8188}}"    
   meteor:
     build: 
-      context: ../../meteor
+      context: ../meteor
     expose:
       - 3000
     networks:
