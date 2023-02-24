@@ -2,13 +2,11 @@
   // @ts-nocheck
   import { getContext } from 'svelte';
 
-  import PlayerStatus from '/src/components/PlayerStatus.svelte';
-  import Connection from '/src/components/Connection.svelte';
-  import Viewer from '/src/components/Viewer.svelte';
-  import Audiostream from '/src/components/Audiostream.svelte';
+  import PlayerStatus from './PlayerStatus.svelte';
+  import Viewer from './Viewer.svelte';
+  import Audiostream from './Audiostream.svelte';
 
   export let slug;
-  export let endpoint;
 
   const channel = getContext('channel');
 
@@ -16,10 +14,8 @@
   $: janusLayers = $channel && $channel.layers && $channel.layers.filter(layer => layer?.asset.type == 'janusaudio') || [];
 </script>
 
-<Connection {slug} {endpoint}/>
-
 <div class="PlayerStatus">
-  <PlayerStatus {slug} {endpoint} />
+  <PlayerStatus {slug} />
 </div>
 
 {#if videoLayer}
