@@ -35,22 +35,6 @@ services:
     labels:
       caddy: ${JANUS_URL}
       caddy.reverse_proxy: "{{upstreams 8188}}"    
-  meteor:
-    build: 
-      context: ../server
-    expose:
-      - 3000
-    networks:
-      - proxy
-      - default
-    restart: unless-stopped
-    labels:
-      caddy: ${METEOR_URL}
-      caddy.reverse_proxy: "{{upstreams 3000}}"
-    environment:
-      PORT: 3000
-      ROOT_URL: ${METEOR_URL}
-      MONGO_URL: mongodb://mongo:27017/meteor
   mongo:
     image: bitnami/mongodb:5.0
     restart: always
@@ -65,17 +49,21 @@ services:
       ALLOW_EMPTY_PASSWORD: "yes"    
   app:
     build: 
-      context: ../client
+      context: ../app
     expose:
       - 3000
     networks:
       - proxy
+      - default
     restart: unless-stopped
     labels:
-      caddy: ${CLIENT_URL}
+      caddy: ${METEOR_URL}
       caddy.reverse_proxy: "{{upstreams 3000}}"
     environment:
-      - PUBLIC_ENDPOINT=${METEOR_WEBSOCKET_URL}
+      PORT: 3000
+      ROOT_URL: ${METEOR_URL}
+      MONGO_URL: mongodb://mongo:27017/meteor
+
 
 
 networks:
