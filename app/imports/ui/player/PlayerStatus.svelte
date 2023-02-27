@@ -8,6 +8,7 @@
 
   const channel          = getContext('channel');
   const ddpStatus        = getContext('ddpStatus');
+  const connectionId     = getContext('connectionId');
 
   $: console.log('PlayerStatus', $ddpStatus, $channel);
 
@@ -25,6 +26,9 @@
     </li>
     <li>
       status: {$ddpStatus} 
+    </li>
+    <li>
+      connectionId: {$connectionId}
     </li>
   </ul>
 {/if}

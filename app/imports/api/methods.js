@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { UserStatus } from 'meteor/mizzao:user-status';
 import { Assets, Channels, Globals } from '/imports/api/collections';
 
 const initialPlayState = {
@@ -125,5 +126,14 @@ Meteor.methods({
     return true
 
   },
+
+  updateConnectionData({connectionId, slug}) {
+    console.log("updateConnectionData", connectionId, slug);
+    UserStatus.connections.update(connectionId, {
+      $set: {
+        "channelSlug": slug
+      }
+    });
+  }
 
 });

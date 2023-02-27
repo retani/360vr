@@ -63,6 +63,7 @@ services:
       PORT: 3000
       ROOT_URL: ${METEOR_URL}
       MONGO_URL: mongodb://mongo:27017/meteor
+      HTTP_FORWARDED_COUNT: 1
 
 
 

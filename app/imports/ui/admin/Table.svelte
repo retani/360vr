@@ -1,8 +1,10 @@
 <script>
   import Cell from './Cell.svelte'
+  import ChannelHeader from './ChannelHeader.svelte'
 
   export let channels
   export let assets
+  export let userStatus
 </script>
 
 <table>
@@ -14,9 +16,7 @@
     </th>
     {#each channels as channel}
       <th>
-        <a href="/c/{channel.slug}" title={channel.slug} target="_blank" rel="noreferrer">
-          {channel.name}
-        </a>
+        <ChannelHeader {channel} {userStatus}/>
       </th>
     {/each}
   </thead>

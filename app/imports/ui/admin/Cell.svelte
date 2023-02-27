@@ -3,6 +3,8 @@
 
   export let asset
   export let channel
+  export let assets
+  export let channels
 
   let loadedAsset = null
   let state = null

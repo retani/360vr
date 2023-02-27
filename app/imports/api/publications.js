@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { UserStatus } from 'meteor/mizzao:user-status';
 import { Assets, Channels, Globals } from '/imports/api/collections';
 
 // all channels
@@ -24,3 +25,8 @@ Meteor.publish('assets.all', function () {
   console.log("Publishing assets");
   return Assets.find();
 })
+
+// UserStatus
+Meteor.publish('userStatus.all', function () {
+  return UserStatus.connections.find();
+});
