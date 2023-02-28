@@ -48,6 +48,7 @@ services:
       MONGODB_ADVERTISED_HOSTNAME: mongo
       ALLOW_EMPTY_PASSWORD: "yes"    
   app:
+    image: intergestalt/360vr:latest
     build: 
       context: ../app
     expose:
