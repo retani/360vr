@@ -11,7 +11,7 @@
   import { Meteor } from "meteor/meteor";
   import { Channels, Assets } from '/imports/api/collections';
   import Loading from '../Loading.svelte';
-  import Table from './Table.svelte';
+  import Workspace from './Workspace.svelte';
   
   let channelsReady = false;
   let assetsReady = false;
@@ -34,12 +34,6 @@
 
 </script>
 
-<div>
-  <a href="/">Home</a>
-</div>
-
-<br>
-
 <Loading loading={allReady}>
-  <Table {channels} {assets} {userStatus}/>
+  <Workspace {channels} {assets} {userStatus}/>
 </Loading>

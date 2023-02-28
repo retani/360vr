@@ -1,6 +1,7 @@
 <script>
   import Cell from './Cell.svelte'
   import ChannelHeader from './ChannelHeader.svelte'
+  import AssetHeader from './AssetHeader.svelte'
 
   export let channels
   export let assets
@@ -9,10 +10,13 @@
 
 <table>
   <thead>
-    <th>
-      Channels ➡
-      <br>
-      Assets ↓
+    <th class="topleft">
+      <span class="columnlabel">
+        Channels
+      </span>
+      <span class="rowlabel">
+        Assets
+      </span>
     </th>
     {#each channels as channel}
       <th>
@@ -24,24 +28,7 @@
     {#each assets as asset}
       <tr>
         <th>
-          <a href="{asset.url}" title={asset.url} target="_blank" rel="noreferrer">
-            {asset.name}
-          </a>
-          {#if asset.hasMicrophone}
-            <span title="uses microphone">
-              🎤
-            </span>
-          {/if}
-          {#if asset.hasVideo}
-            <span title="has video">
-              🎬
-            </span>
-          {/if}
-          {#if asset.hasAudio}
-            <span title="has audio">
-              🔈
-            </span>
-          {/if}
+          <AssetHeader {asset}/>
         </th>
         {#each channels as channel}
           <td>
@@ -57,13 +44,45 @@
 <style>
   table {
     border-collapse: collapse;
-    height: 100%;
   }
   th, td {
     border: 1px solid #888;
   }
   th {
-    background: #222;
     padding: 0.5em;
+    background-color: #222;
+  }
+  table thead {
+    position: sticky;
+    inset-block-start: 0; /* "top" */
+  }
+  tr {
+    height: 2rem;
+  }
+  td {
+    height: inherit;
+  }
+  .topleft {
+    position: relative;
+  }
+  .columnlabel {
+    display: block;
+    transform: rotate(-90deg);
+    transform-origin: right bottom;
+    margin-left: 1em;
+    position: absolute;
+    top: -1em;
+    right: 0;
+    padding: 5px;
+  }
+  .rowlabel {
+    display: block;
+    margin-top: 1em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 5px;
+    width: 100%;
+    
   }
 </style>

@@ -1,5 +1,7 @@
 <script>
   import { Meteor } from "meteor/meteor";
+  import Button from "./Button.svelte";
+  import { selectedAssetsChannels } from "./stores.js";
 
   export let asset
   export let channel
@@ -16,6 +18,22 @@
     state = layer?.state
   }
 
+  $: selectedItem = $selectedAssetsChannels.find(a => a.assetId === asset._id && a.channelId === channel._id)
+
+  const toggleSelected = () => {
+    if (!!selectedItem) {
+      $selectedAssetsChannels = [
+        ...$selectedAssetsChannels.filter(a => a.assetId !== asset._id || a.channelId !== channel._id)
+      ]
+    } else {
+      $selectedAssetsChannels = [
+        ...$selectedAssetsChannels,
+        { assetId: asset._id, channelId: channel._id }
+      ]
+    }
+  }
+    
+
   const onClickPlay = () => Meteor.call("startPlay", { assetId: asset._id, channelId: channel._id })
   const onClickPause = () => Meteor.call("pausePlay", { assetId: asset._id, channelId: channel._id })
   const onClickStop = () => Meteor.call("stopPlay", { assetId: asset._id, channelId: channel._id })
@@ -23,32 +41,35 @@
   
 </script>
 
-<div class="container" class:playing={state?.playing} class:loaded={loadedAsset}>
-  {#if !loadedAsset}
-    <div class="button">
-      <button on:click={onClickLoad}>
-        Load
-      </button>
-    </div>
-  {/if}
+<div class="container" class:playing={state?.playing} class:loaded={loadedAsset} class:selected={selectedItem}>
 
-  {#if loadedAsset && !state.playing}
-    <button class="icon" on:click={onClickStop}>
-      ⏹️
-    </button>
-  {/if}
+  <label class="select">
+    <input type="checkbox" checked={!!selectedItem} on:click={toggleSelected} />
+  </label>
 
-  {#if loadedAsset && !state.playing }
-    <button class="icon" on:click={onClickPlay}>
-      ▶️
-    </button>
-  {/if}
-  
-  {#if loadedAsset && state.playing}
-    <button class="icon" on:click={onClickPause}>
-      ⏸️
-    </button>
-  {/if}
+  <span class="transport">
+
+    {#if !loadedAsset}
+      <div class="button">
+        <Button on:click={onClickLoad}>
+          Load
+        </Button>
+      </div>
+    {/if}
+
+    {#if loadedAsset && !state.playing }
+      <Button type="play" on:click={onClickPlay} />
+    {/if}
+    
+    {#if loadedAsset && state.playing}
+      <Button type="pause" on:click={onClickPause} />
+    {/if}
+
+    {#if loadedAsset }
+      <Button type="stop" on:click={onClickStop} />
+    {/if}
+
+  </span>
 
 </div>
 
@@ -57,24 +78,32 @@
     height: 100%;
     overflow: hidden;
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    align-items: stretch;
+    align-items: center;
   }
   .container.loaded {
     background: radial-gradient(circle, #888 0%, transparent 65%);
   }
-
-  .button button {
-    border: revert;
-    padding: 0.2em;
+  .container.selected {
+    outline: 2px solid #ff0;
   }
 
-  button {
-    margin: 2px;
+  .select {
+    padding-left: 0.5em;
   }
 
-  .icon {
-    transform: scale(1.25);
+  .transport {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .select input {
+    all: revert;
+    height: 1.3em;
+    width: 1.3em;
   }
 
   .playing {

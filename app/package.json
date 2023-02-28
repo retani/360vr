@@ -13,6 +13,7 @@
     "janus-gateway-js": "^2.0.2",
     "meteor-node-stubs": "^1.2.5",
     "svelte": "^3.54.0",
+    "svelte-icons-pack": "^2.0.0",
     "three": "^0.150.0"
   },
   "devDependencies": {
