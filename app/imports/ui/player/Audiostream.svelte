@@ -1,7 +1,7 @@
 <script>
   // @ts-nocheck
 
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { getContext } from 'svelte';
   import * as Janus from 'janus-gateway-js';
 
@@ -20,11 +20,12 @@
   //const janusServer = 'ws://360vr.intergestalt.cloud:8188'
   const janusServer = asset.url
   const room = asset.room
+  let janus = null
 
   onMount(async () => {
     try {
       $audioStatus = 'connecting'
-      const janus = new Janus.Client(janusServer, { keepalive: true, apisecret: asset.apisecret });
+      janus = new Janus.Client(janusServer, { keepalive: true, apisecret: asset.apisecret });
       const connection = await janus.createConnection();
       $audioStatus = 'connected'
       const session = await connection.createSession();
@@ -48,6 +49,12 @@
       console.error(err);
       $audioStatus = 'error'    
     }                                   
+  });
+
+  onDestroy(() => {
+    if (janus) {
+      janus.destroy();
+    }
   });
 </script>
 
