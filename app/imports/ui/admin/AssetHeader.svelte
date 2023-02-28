@@ -11,6 +11,8 @@
       C
     {:else if asset.type == "image"}
       I
+    {:else if asset.type == "text"}
+      T
     {/if}
   </span>
 
@@ -28,6 +30,11 @@
     {#if asset.hasAudio}
       <span title="has audio">
         🔈
+      </span>
+    {/if}
+    {#if asset.hasImage}
+      <span title="has image">
+        🖼️
       </span>
     {/if}
   </span>

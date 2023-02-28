@@ -1,4 +1,5 @@
 <script>
+  import { Meteor } from "meteor/meteor";
   import { getContext } from 'svelte';
 
   const audioPaused      = getContext('audioPaused');
@@ -12,14 +13,14 @@
 
   $: console.log('PlayerStatus', $ddpStatus, $channel);
 
-  export let endpoint = "";
+  const endpoint = Meteor.absoluteUrl();
   export let slug = "";
 </script>
 
 {#if $ddpStatus}
   <ul>
     <li>
-      endpoint: {endpoint}
+      server: {endpoint}
     </li>
     <li>
       slug: {slug}

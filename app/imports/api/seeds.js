@@ -74,4 +74,10 @@ export const defaultAssets = [
     hasMicrophone: true,
     hasAudio: true,
   },
+  {
+    type: 'text',
+    name: 'Welcome Text',
+    text: 'Welcome to the 360° VR Demo',
+    hasImage: true,
+  },
 ];
