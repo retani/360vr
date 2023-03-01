@@ -1,6 +1,6 @@
 <script>
   // @ts-nocheck
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   // import threejs
   import * as THREE from 'three';
   //import { VRButton } from 'three/addons/webxr/VRButton.js';
@@ -66,6 +66,11 @@
     //});
 
     mounted = true
+  });
+
+  onDestroy(() => {
+    const session = renderer.xr.getSession()
+    if (session) session.end()
   });
 
   function init() {
