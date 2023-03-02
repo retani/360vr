@@ -39,6 +39,15 @@ export const defaultAssets = [
     hasAudio: false,
   },
   {
+    type: 'video', // audio, video, image
+    //locationType: 'url', // url, file
+    name: 'Live Theta 360',
+    //"https://tube.kh-berlin.de/videos/embed/b35e7700-efc1-465c-9ed8-da11460aa13d"
+    url: "https://tube.kh-berlin.de/static/streaming-playlists/hls/b35e7700-efc1-465c-9ed8-da11460aa13d/master.m3u8",
+    hasVideo: true,
+    hasAudio: false,
+  },
+  {
     type: 'janusaudio',
     name: 'Audio Conference 1 (1001)',
     url: "wss://janus.360vr.intergestalt.cloud",
