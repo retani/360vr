@@ -33,7 +33,7 @@ export const defaultAssets = [
     type: 'video', // audio, video, image
     //locationType: 'url', // url, file
     name: 'Amagamma 360',
-    url: "https://tube.kh-berlin.de/videos/embed/6000af6b-13c2-4644-8315-6b6a6c6bc6c4",
+    url: "https://tube.kh-berlin.de/videos/watch/6000af6b-13c2-4644-8315-6b6a6c6bc6c4",
     hasVideo: true,
     hasAudio: false,
   },
