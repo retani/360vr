@@ -8,6 +8,7 @@
   import TextLayer from './TextLayer.svelte';
 
   export let slug;
+  export let preview;
 
   const channel = getContext('channel');
   
@@ -16,9 +17,11 @@
   $: janusLayers = $channel && $channel.layers && $channel.layers.filter(layer => layer?.asset.type == 'janusaudio') || [];
 </script>
 
-<div class="PlayerStatus">
-  <PlayerStatus {slug} />
-</div>
+{#if !preview}
+  <div class="PlayerStatus">
+    <PlayerStatus {slug} />
+  </div>
+{/if}
 
 {#if textLayer}
   <TextLayer asset={textLayer.asset} state={textLayer.state} />

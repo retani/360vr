@@ -5,6 +5,8 @@
   import Home from './player/Home.svelte';
 
   const path = window.location.pathname
+  const params = new URLSearchParams(window.location.search)
+  const preview = params.has('preview')
 
 </script>
 
@@ -16,7 +18,7 @@
 {:else if path.indexOf("/dashboard") === 0}
   <Dashboard />
 {:else if path.indexOf(/c/) === 0}
-  <Player slug={path.split('/')[2]} />
+  <Player slug={path.split('/')[2]} {preview} />
 {:else if path === "/admin"}
   <Admin />
 {:else}

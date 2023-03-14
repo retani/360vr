@@ -1,6 +1,6 @@
 <script>
   import { Meteor } from 'meteor/meteor'
-
+  
   export let channel
   export let userStatus
 
@@ -14,9 +14,7 @@
     {channel.name}
   </h2>
   <a href={url} title={channel.slug} target="_blank" rel="noreferrer">
-    <small>
-      {url}
-    </small>
+    <iframe src={"/c/" + channel.slug + "?preview"} title={url} />
   </a>
   <br/>
   <span class="viewers" class:active={players.length > 0}> 
@@ -39,11 +37,14 @@
   h2 {
     margin-bottom: 1em;
   }
-  a {
-    word-break: break-all;
-    display: block;
-    border: 1px solid #555;
-    border-radius: 5px;
-    background-color: #444;
+  a{
+    text-decoration: none;
+    border: none;
+  }
+  iframe {
+    width: 160px;
+    height: 90px;
+    overflow: hidden;
+    border: solid 1px #444;
   }
 </style>
