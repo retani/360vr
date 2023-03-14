@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { UserStatus } from 'meteor/mizzao:user-status';
-import { Assets, Channels, Globals } from '/imports/api/collections';
+import { Assets, Channels, Globals, Events } from '/imports/api/collections';
 
 const initialPlayState = {
   playing: false,
@@ -133,6 +133,16 @@ Meteor.methods({
       $set: {
         "channelSlug": slug
       }
+    });
+  },
+
+  logBrowserEvent({channelId, connectionId, data}) {
+    Events.insert({
+      type: "browser",
+      channelId,
+      connectionId,
+      data,
+      createdAt: new Date()
     });
   }
 

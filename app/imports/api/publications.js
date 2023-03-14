@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { UserStatus } from 'meteor/mizzao:user-status';
-import { Assets, Channels, Globals } from '/imports/api/collections';
+import { Assets, Channels, Globals, Events } from '/imports/api/collections';
 
 // all channels
 Meteor.publish('channels.all', function () {
@@ -29,4 +29,9 @@ Meteor.publish('assets.all', function () {
 // UserStatus
 Meteor.publish('userStatus.all', function () {
   return UserStatus.connections.find();
+});
+
+// recent events
+Meteor.publish('events.recent', function ({limit = 10}) {
+  return Events.find({}, {sort: {createdAt: -1}, limit});
 });

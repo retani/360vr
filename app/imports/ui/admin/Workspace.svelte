@@ -2,6 +2,7 @@
   import Table from './Table.svelte';
   import Header from './Header.svelte';
   import MultiSelect from './MultiSelect.svelte';
+  import EventsLog from './EventsLog.svelte';
 
   export let channels
   export let assets
@@ -17,6 +18,9 @@
   </div>
   <div class="scenes">
     <MultiSelect />
+  </div>
+  <div class="log">
+    <EventsLog {channels} />
   </div>
 </div>
 
@@ -38,7 +42,13 @@
   }
   .scenes {
     grid-row: 3;
-    grid-column: 1 / 3;
+    grid-column: 1;
     border-top: 1px solid #555;
+  }
+  .log {
+    grid-row: 3;
+    grid-column: 2;
+    border-top: 1px solid #555;
+    overflow: auto;
   }
 </style>
