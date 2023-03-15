@@ -56,6 +56,7 @@
   const distance = 50;
 
   let mounted = false
+  let VRButtonElem = null
 
   onMount(() => {
     init();
@@ -67,7 +68,8 @@
     
     //import('three/addons/webxr/VRButton.js').then(module => {
     //  const { VRButton } = module;
-      document.body.appendChild(VRButton.createButton(renderer));
+      VRButtonElem = VRButton.createButton(renderer)
+      document.body.appendChild(VRButtonElem)
     //});
 
     mounted = true
@@ -76,6 +78,8 @@
   onDestroy(() => {
     const session = renderer.xr.getSession()
     if (session) session.end()
+    // remove VRButton
+    if (VRButtonElem) VRButtonElem.remove()
   });
 
   function init() {

@@ -127,11 +127,12 @@ Meteor.methods({
 
   },
 
-  updateConnectionData({connectionId, slug}) {
+  updateConnectionData({connectionId, slug, preview}) {
     console.log("updateConnectionData", connectionId, slug);
     UserStatus.connections.update(connectionId, {
       $set: {
-        "channelSlug": slug
+        "channelSlug": slug,
+        preview
       }
     });
   },

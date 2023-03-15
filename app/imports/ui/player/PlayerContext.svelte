@@ -8,6 +8,7 @@
   import { Channels } from '../../api/collections';
 
   export let slug
+  export let preview
 
   let channelReady = false;
   let channel = writable(null);
@@ -36,7 +37,11 @@
     const newId = Meteor.connection._lastSessionId
     if (newId != $connectionId) {
       connectionId.set(newId)
-      Meteor.call('updateConnectionData', {connectionId: newId, slug})
+      Meteor.call('updateConnectionData', {
+        connectionId: newId, 
+        slug,
+        preview,
+      })
     }
   }
 

@@ -4,7 +4,7 @@
   export let channel
   export let userStatus
 
-  $: players = userStatus.filter(p => p.channelSlug == channel.slug) || []
+  $: players = userStatus.filter(p => p.channelSlug == channel.slug && !p.preview) || []
 
   const url = Meteor.absoluteUrl() + "c/" + channel.slug
 </script>
@@ -16,7 +16,6 @@
   <a href={url} title={channel.slug} target="_blank" rel="noreferrer">
     <iframe src={"/c/" + channel.slug + "?preview"} title={url} />
   </a>
-  <br/>
   <span class="viewers" class:active={players.length > 0}> 
     {players.length} viewers
   </span>
@@ -35,16 +34,23 @@
     font-size: 0.8em;
   }
   h2 {
-    margin-bottom: 1em;
+    margin-bottom: .5em;
   }
-  a{
+  a {
     text-decoration: none;
     border: none;
+    cursor: pointer;
   }
   iframe {
     width: 160px;
     height: 90px;
     overflow: hidden;
     border: solid 1px #444;
+    pointer-events: none;
+    display: block;
+  }
+  .viewers {
+    display: block;
+    margin-top: .5em;
   }
 </style>

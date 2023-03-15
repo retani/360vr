@@ -8,6 +8,6 @@
 
 </script>
 
-<PlayerContext {slug}>
+<PlayerContext {slug} {preview} >
   <App {slug} {preview} />
 </PlayerContext>

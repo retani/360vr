@@ -26,7 +26,7 @@
   }
 
   .text {
-    font-size: 2em;
+    font-size: 5vw;
     font-weight: bold;
     text-align: center;
     padding: 1em;
