@@ -71,8 +71,10 @@ Meteor.methods({
     return await Meteor.call('updateLayerState', {
       channelId, 
       assetId,
-      key:"playing", 
-      value: true
+      data: {
+        playing: true,
+        startedAt: Date.now()
+      }
     });
   },
 
@@ -80,8 +82,10 @@ Meteor.methods({
     await Meteor.call('updateLayerState', {
       channelId, 
       assetId,
-      key:"playing", 
-      value: false
+      data: {
+        playing: false,
+        pausedAt: Date.now()
+      }
     });
   },
 
@@ -89,14 +93,16 @@ Meteor.methods({
     await Meteor.call('updateLayerState', {
       channelId, 
       assetId,
-      key:"playing", 
-      value: false
+      data: {
+        playing: false,
+        stoppedAt: Date.now()
+      }
     });
     // unload asset from channel
     await Meteor.call('unloadAssetFromChannel', {channelId, assetId});
   },
 
-  async updateLayerState({channelId, assetId, key, value}) {
+  async updateLayerState({channelId, assetId, data}) {
     const channel = Channels.findOne(channelId)
 
     // get and/or set asset
@@ -112,11 +118,17 @@ Meteor.methods({
 
     console.log(`Updateing asset "${asset.name}" on channel ${channel.slug}`);
 
+    // get key/value pairs to update from data and make an object for $set
+    const $set = {}
+    for (const [key, value] of Object.entries(data)) {
+      if (state[key] !== value) {
+        $set[`layers.$[layer].state.${key}`] = value
+      }
+    }
+
     // set asset.playing to channel.layers where asset._id === assetId
     Channels.update(channelId, {
-      $set: {
-        [`layers.$[layer].state.${key}`]: value
-      }
+      $set
     }, {
       arrayFilters: [
         { "layer._id": assetId }

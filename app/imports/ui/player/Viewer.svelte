@@ -9,11 +9,20 @@
   export let asset;
   export let state;
 
+  let video
+
+  let camera, scene, renderer;
+
+  const distance = 50;
+
+  let mounted = false
+  let VRButtonElem = null
+
   $: paused = !state.playing;
   
   onMount(() => {
+
     import('hls.js').then(Hls => {
-      var video = document.getElementById('video');
 
       // url="https://tube.kh-berlin.de/videos/watch/6000af6b-13c2-4644-8315-6b6a6c6bc6c4"
       // videoSrc="https://tube.kh-berlin.de/static/streaming-playlists/hls/5db24246-3f3b-4303-b472-8d851bfe3c6f/master.m3u8"
@@ -48,17 +57,7 @@
         video.src = videoSrc;
       }
     })
-  });
-  
-  
-  let camera, scene, renderer;
 
-  const distance = 50;
-
-  let mounted = false
-  let VRButtonElem = null
-
-  onMount(() => {
     init();
     animate();
     
@@ -82,6 +81,22 @@
     if (VRButtonElem) VRButtonElem.remove()
   });
 
+  //const onCanPlay = () => {
+  //  if (state.playing) setTimeout(() => video.play(), 10)
+  //console.log('onCanPlay')
+  //}
+
+  const onLoadedMetadata = () => {
+    console.log('onLoadedMetadata')
+    const timeOffset = TimeSync.serverTime() - state.startedAt
+    if (timeOffset) {
+      video.currentTime = timeOffset / 1000
+    }
+    if (state.playing) {
+      video.play()
+    }
+  }
+
   function init() {
 
     const container = document.getElementById( 'container' );
@@ -92,10 +107,7 @@
 
     const geometry = new THREE.SphereGeometry( 500, 60, 40 );
     // invert the geometry on the x-axis so that all of the faces point inward
-    geometry.scale( - 1, 1, 1 );
-
-    const video = document.getElementById( 'video' );
-    //video.play();
+    geometry.scale( - 1, 1, 1 );    
 
     const texture = new THREE.VideoTexture( video );
     const material = new THREE.MeshBasicMaterial( { map: texture } );
@@ -143,9 +155,18 @@
 
 <div id="container"></div>
 
-<video id="video" loop muted crossOrigin="anonymous" playsinline style="display:none" bind:paused >
-  <source src="https://threejs.org/examples/textures/pano.webm">
-  <source src="https://threejs.org/examples/textures/pano.mp4">
+<video 
+    loop 
+    muted 
+    crossOrigin="anonymous" 
+    playsinline 
+    style="display:none" 
+    bind:this={video}
+    bind:paused 
+    on:loadedmetadata={onLoadedMetadata}
+  >
+  <!--source src="https://threejs.org/examples/textures/pano.webm">
+  <source src="https://threejs.org/examples/textures/pano.mp4"-->
 </video>
 
 <style>

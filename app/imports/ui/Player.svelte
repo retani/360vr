@@ -8,6 +8,15 @@
 
 </script>
 
+<svelte:head>
+  {#if preview}
+    <title>360vr player for {slug} (preview)</title>
+  {:else}
+    <title>360vr player for {slug}</title>
+  {/if}
+  
+</svelte:head>
+
 <PlayerContext {slug} {preview} >
   <App {slug} {preview} />
 </PlayerContext>
