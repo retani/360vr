@@ -1,17 +1,17 @@
 export const defaultChannels = [
   {
-    slug: 'goggle1',
-    name: 'Goggle 1',
+    slug: 'group1',
+    name: 'Group 1',
     type: 'headset',
   },
   {
-    slug: 'goggle2',
-    name: 'Goggle 2',
+    slug: 'group2',
+    name: 'Group 2',
     type: 'headset',
   },
   {
-    slug: 'goggle3',
-    name: 'Goggle 3',
+    slug: 'group3',
+    name: 'Group 3',
     type: 'headset',
   }
 ];
