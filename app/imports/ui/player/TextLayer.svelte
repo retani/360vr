@@ -3,7 +3,7 @@
   export let state;
 </script>
 
-{#if state?.playing}
+{#if state?.transport != "stopped"}
   <div class="playing">
     <div class="text">
       {asset.text}

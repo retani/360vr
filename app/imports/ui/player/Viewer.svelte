@@ -18,7 +18,7 @@
   let mounted = false
   let VRButtonElem = null
 
-  $: paused = !state.playing;
+  $: paused = state.transport != "playing";
   
   onMount(() => {
 
@@ -92,7 +92,7 @@
     if (timeOffset) {
       video.currentTime = timeOffset / 1000
     }
-    if (state.playing) {
+    if (state.transport == "playing") {
       video.play()
     }
   }

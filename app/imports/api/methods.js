@@ -3,7 +3,7 @@ import { UserStatus } from 'meteor/mizzao:user-status';
 import { Assets, Channels, Globals, Events } from '/imports/api/collections';
 
 const initialPlayState = {
-  playing: false,
+  transport: "stopped",
   //currentTime: 0,
   //duration: 0,
   //volume: 1,
@@ -72,7 +72,7 @@ Meteor.methods({
       channelId, 
       assetId,
       data: {
-        playing: true,
+        transport: "playing",
         startedAt: Date.now()
       }
     });
@@ -83,7 +83,7 @@ Meteor.methods({
       channelId, 
       assetId,
       data: {
-        playing: false,
+        transport: "paused",
         pausedAt: Date.now()
       }
     });
@@ -94,7 +94,7 @@ Meteor.methods({
       channelId, 
       assetId,
       data: {
-        playing: false,
+        transport: "stopped",
         stoppedAt: Date.now()
       }
     });

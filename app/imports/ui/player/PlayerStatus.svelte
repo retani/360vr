@@ -57,7 +57,7 @@
     <ol>
     {#each $channel.layers as layer}
       <li>
-        asset: {layer.asset.name} ({layer.asset.url}) – {layer.state.playing ? 'playing' : 'paused'}
+        asset: {layer.asset.name} ({layer.asset.url}) – {layer.state.transport}
       </li>
     {/each}
     </ol>

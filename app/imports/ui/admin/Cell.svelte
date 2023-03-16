@@ -41,7 +41,7 @@
   
 </script>
 
-<div class="container" class:playing={state?.playing} class:loaded={loadedAsset} class:selected={selectedItem}>
+<div class="container" class:playing={state?.transport == "playing"} class:loaded={loadedAsset} class:selected={selectedItem}>
 
   <label class="select">
     <input type="checkbox" checked={!!selectedItem} on:click={toggleSelected} />
@@ -57,11 +57,11 @@
       </div>
     {/if}
 
-    {#if loadedAsset && !state.playing }
+    {#if loadedAsset && state.transport != "playing" }
       <Button type="play" on:click={onClickPlay} />
     {/if}
     
-    {#if loadedAsset && state.playing}
+    {#if loadedAsset && state.transport == "playing" }
       <Button type="pause" on:click={onClickPause} />
     {/if}
 

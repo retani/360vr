@@ -10,7 +10,7 @@
 
   let audioElem = null
 
-  $: paused =  state ? !state.playing : true
+  $: paused =  state ? state.playing != "playing" : true
 
   const audioVolume      = getContext('audioVolume');
   const audioCurrentTime = getContext('audioCurrentTime');
