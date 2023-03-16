@@ -16,9 +16,18 @@
   const distance = 50;
 
   let mounted = false
+  let metadataloaded = false
   let VRButtonElem = null
+  let paused = true
 
-  $: paused = state.transport != "playing";
+  $: {
+    if (metadataloaded && mounted) {
+      paused = state.transport != "playing";
+      console.log("paused: ", paused);
+    }
+  }
+
+
   
   onMount(() => {
 
@@ -89,12 +98,17 @@
   const onLoadedMetadata = () => {
     console.log('onLoadedMetadata')
     const timeOffset = TimeSync.serverTime() - state.startedAt
+    metadataloaded = true
     if (timeOffset) {
       video.currentTime = timeOffset / 1000
     }
     if (state.transport == "playing") {
-      video.play()
+      //paused = false
     }
+  }
+
+  const onVideoEvent = (event) => {
+    console.log('onVideoEvent', event.type)
   }
 
   function init() {
@@ -164,6 +178,14 @@
     bind:this={video}
     bind:paused 
     on:loadedmetadata={onLoadedMetadata}
+    on:loadstart={onVideoEvent}
+    on:ended={onVideoEvent}
+    on:canplay={onVideoEvent}
+    on:canplaythrough={onVideoEvent}
+    on:stalled={onVideoEvent}
+    on:error={onVideoEvent}
+    on:waiting={onVideoEvent}
+    on:suspend={onVideoEvent}
   >
   <!--source src="https://threejs.org/examples/textures/pano.webm">
   <source src="https://threejs.org/examples/textures/pano.mp4"-->
