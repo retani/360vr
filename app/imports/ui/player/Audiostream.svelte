@@ -52,7 +52,8 @@
   });
 
   onDestroy(() => {
-    if (janus) {
+    if (janus && janus.destroy) {
+      console.log("destroying janus"); // currently inactive
       janus.destroy();
     }
   });
