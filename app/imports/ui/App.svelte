@@ -1,12 +1,11 @@
 <script>
-  import Dashboard from './Dashboard.svelte';
   import Player from './Player.svelte';
-  import Admin from './admin/Admin.svelte';
   import Home from './player/Home.svelte';
 
   const path = window.location.pathname
   const params = new URLSearchParams(window.location.search)
   const preview = params.has('preview')
+
 
 </script>
 
@@ -14,14 +13,32 @@
 <!-- router -->
 
 {#if path === '/'}
-  <Home />
+
+  {#await import(`./player/Home.svelte`) then Home}
+    <svelte:component this={Home.default} {preview} />
+  {/await}
+
 {:else if path.indexOf("/dashboard") === 0}
-  <Dashboard />
+
+  {#await import(`./Dashboard.svelte`) then Dashboard}
+    <svelte:component this={Dashboard.default} />
+  {/await}
+
 {:else if path.indexOf(/c/) === 0}
-  <Player slug={path.split('/')[2]} {preview} />
+  
+  {#await import(`./Player.svelte`) then Player}
+    <svelte:component this={Player.default} slug={path.split('/')[2]} {preview}  />
+  {/await}
+
 {:else if path === "/admin"}
-  <Admin />
+
+  {#await import(`./admin/Admin.svelte`) then Admin}
+    <svelte:component this={Admin.default} />
+  {/await}
+
 {:else}
+
   <a href="/">404</a>
+
 {/if}
 
