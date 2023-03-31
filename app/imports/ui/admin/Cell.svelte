@@ -1,6 +1,7 @@
 <script>
   import { Meteor } from "meteor/meteor";
   import Button from "./Button.svelte";
+  import Playtime from "../common/Playtime.svelte";
   import { selectedAssetsChannels } from "./stores.js";
 
   export let asset
@@ -48,6 +49,11 @@
   </label>
 
   <span class="transport">
+    {#if loadedAsset}
+      <span class="playtime">
+        <Playtime {state} />
+      </span>
+    {/if}
 
     {#if !loadedAsset}
       <div class="button">
@@ -109,6 +115,14 @@
   .playing {
     /* yellow radial gradient */
     position: relative;
+  }
+
+  .playtime {
+    padding: 0 0.5em;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 
   /* background gradient animation */

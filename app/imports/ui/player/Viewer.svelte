@@ -1,6 +1,6 @@
 <script>
   // @ts-nocheck
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy, getContext } from 'svelte';
   // import threejs
   import * as THREE from 'three';
   //import { VRButton } from 'three/addons/webxr/VRButton.js';
@@ -8,6 +8,10 @@
 
   export let asset;
   export let state;
+
+  const browserEvents =  getContext("browserEvents")
+
+  $: visibilityRegainedEvents = ($browserEvents || []).filter(e => e == "visibility_visible")
 
   let video
 
@@ -26,8 +30,6 @@
       console.log("paused: ", paused);
     }
   }
-
-
   
   onMount(() => {
 
@@ -36,14 +38,20 @@
       // url="https://tube.kh-berlin.de/videos/watch/6000af6b-13c2-4644-8315-6b6a6c6bc6c4"
       // videoSrc="https://tube.kh-berlin.de/static/streaming-playlists/hls/5db24246-3f3b-4303-b472-8d851bfe3c6f/master.m3u8"
 
-      var videoSrc = asset.url.replace('videos/watch', 'static/streaming-playlists/hls') + '/master.m3u8'
+      // transform video url to hls url if it doesn't already end with .m3u8
+      if (!asset.url.endsWith('.m3u8')) {
+        var videoSrc = asset.url.replace('videos/watch', 'static/streaming-playlists/hls') + '/master.m3u8'
+      } else {
+        var videoSrc = asset.url
+      }
+      
 
       // https://tube.kh-berlin.de/static/streaming-playlists/hls/58f28745-1a9b-47e2-9d45-f2c40b05cb6c/master.m3u8
       // https://tube.kh-berlin.de/videos/watch/8d09e932-b03b-40f1-8d6a-7a4554a4b9d7
       // https://rec.stream.intergestalt.cloud/hls/test.m3u8
       // https://tube.kh-berlin.de/static/streaming-playlists/hls/8d09e932-b03b-40f1-8d6a-7a4554a4b9d7/master.m3u8
       // 
-      console.log(Hls)
+
       if (Hls.isSupported()) {
         var hls = new Hls.default();
         hls.loadSource(videoSrc);
@@ -97,18 +105,39 @@
 
   const onLoadedMetadata = () => {
     console.log('onLoadedMetadata')
-    const timeOffset = TimeSync.serverTime() - state.startedAt
     metadataloaded = true
-    if (timeOffset) {
-      video.currentTime = timeOffset / 1000
+    console.log('resyncing because metadata loaded')
+    resync()
+  }
+
+  const resync = () => {
+    let timeOffset
+    if (state.transport == "paused") {
+      timeOffset = state.offset
+    } else if (state.transport == "playing") {
+      timeOffset = TimeSync.serverTime() - state.startedAt
     }
-    if (state.transport == "playing") {
-      //paused = false
+    if (timeOffset && video) {
+      const delta = Math.abs(video.currentTime - timeOffset / 1000)
+      console.log('delta', delta, timeOffset, video.currentTime)
+      if (delta > 0.2) {
+        video.currentTime = timeOffset / 1000
+      }
     }
+  }
+
+  $: {
+    console.log(visibilityRegainedEvents)
+    console.log('resyncing because visibility regained')
+    resync()
   }
 
   const onVideoEvent = (event) => {
     console.log('onVideoEvent', event.type)
+    if (event.type == "waiting") {
+      console.log("resyncing because canplaythrough")
+      resync()
+    }
   }
 
   function init() {

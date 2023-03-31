@@ -46,6 +46,14 @@ export const defaultAssets = [
     hasAudio: false,
   },
   {
+    type: 'video', // audio, video, image
+    //locationType: 'url', // url, file
+    name: 'Local HLS',
+    url: "http://localhost:8000/index.m3u8",
+    hasVideo: true,
+    hasAudio: true,
+  },
+  {
     type: 'janusaudio',
     name: 'Audio Conference 1 (1001)',
     url: "wss://janus.360vr.intergestalt.cloud",

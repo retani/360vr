@@ -24,6 +24,7 @@
   setContext('channel', channel)
   setContext('ddpStatus',ddpStatus)
   setContext('connectionId', connectionId)
+  setContext('browserEvents', browserEvents)
 
   const logBrowserEvent = (data) => {
     browserEvents.set([...$browserEvents, data])
@@ -66,17 +67,17 @@
   onMount(() => {
     document.addEventListener('visibilitychange', function (event) {
         if (document.hidden) {
-          logBrowserEvent('visibilitychange: hidden')
+          logBrowserEvent('visibility_hidden')
         } else {
-          logBrowserEvent('visibilitychange: visible')
+          logBrowserEvent('visibility_visible')
         }
     });
     window.addEventListener('focus', function (event) {
-        logBrowserEvent('window focus')
+        logBrowserEvent('window_focus')
     });
 
     window.addEventListener('blur', function (event) {
-        logBrowserEvent('window blur')
+        logBrowserEvent('window_blur')
     });
   })
 

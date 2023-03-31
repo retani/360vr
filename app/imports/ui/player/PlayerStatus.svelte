@@ -10,6 +10,7 @@
   const channel          = getContext('channel');
   const ddpStatus        = getContext('ddpStatus');
   const connectionId     = getContext('connectionId');
+  const browserEvents    = getContext('browserEvents');
 
   $: console.log('PlayerStatus', $ddpStatus, $channel);
 
@@ -70,8 +71,19 @@
   </ul>
 {/if}
 
+<ul class="events">
+  {#each $browserEvents as event}
+    <li>
+      event: {event}
+    </li>
+  {/each}
+</ul>
+
 <style>
   ul {
     padding: 1ex;
+  }
+  .events {
+    max-height: 5em;
   }
 </style>

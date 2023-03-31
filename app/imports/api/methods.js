@@ -68,23 +68,32 @@ Meteor.methods({
   },
 
   async startPlay({channelId, assetId}) {
+    // get current offset if paused
+    const state = await Channels.findOne(channelId).layers.find(layer => layer._id === assetId)?.state || {}
+    state.offset = state.offset || 0
+
     return await Meteor.call('updateLayerState', {
       channelId, 
       assetId,
       data: {
         transport: "playing",
-        startedAt: Date.now()
+        startedAt: state.offset ? Date.now() - state.offset : Date.now(),
+        offset: state.offset
       }
     });
   },
 
   async pausePlay({channelId, assetId}) {
+    // get current startedAt time
+    const state = await Channels.findOne(channelId).layers.find(layer => layer._id === assetId)?.state
+
     await Meteor.call('updateLayerState', {
       channelId, 
       assetId,
       data: {
         transport: "paused",
-        pausedAt: Date.now()
+        pausedAt: Date.now(),
+        offset: Date.now() - state.startedAt
       }
     });
   },
@@ -95,7 +104,8 @@ Meteor.methods({
       assetId,
       data: {
         transport: "stopped",
-        stoppedAt: Date.now()
+        stoppedAt: Date.now(),
+        offset: 0
       }
     });
     // unload asset from channel

@@ -21,7 +21,7 @@
 {#if subReady}
   <ul class="container">
     {#each events as event}
-    {@const channelSlug = channels.find(c => c._id == event.channelId).slug}
+    {@const channelSlug = channels.find(c => c._id == event.channelId)?.slug}
       <li class="event">
         <div class="time">
           <Time timestamp={event.createdAt} format="H:mm:ss" />
