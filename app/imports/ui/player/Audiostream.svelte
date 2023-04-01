@@ -10,7 +10,7 @@
 
   let audioElem = null
 
-  $: paused =  state ? state.playing != "playing" : true
+  $: paused =  state ? state.transport != "playing" : true
 
   const audioVolume      = getContext('audioVolume');
   const audioCurrentTime = getContext('audioCurrentTime');
@@ -25,7 +25,7 @@
   onMount(async () => {
     try {
       $audioStatus = 'connecting'
-      janus = new Janus.Client(janusServer, { keepalive: true, apisecret: asset.apisecret });
+      janus = new Janus.Client(janusServer, { keepalive: 30, apisecret: asset.apisecret });
       const connection = await janus.createConnection();
       $audioStatus = 'connected'
       const session = await connection.createSession();
@@ -38,7 +38,7 @@
           console.log(audioElem);
           audioElem.srcObject = new MediaStream(message.streams[0]);
           $audioStatus = "stream attached"
-          if (!paused) audioElem.play();
+          if (!paused && !audioElem.paused) audioElem.play();
           //Janus.attachMediaStream(audioElem, message.streams[0]);
         }
       });
