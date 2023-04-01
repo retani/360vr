@@ -1,6 +1,7 @@
 <script>
   import { Meteor } from "meteor/meteor";
   import { getContext } from 'svelte';
+  import { microphonePermission, promptMicrophonePermission } from './permissionsStore.js';
 
   const audioPaused      = getContext('audioPaused');
   const audioVolume      = getContext('audioVolume');
@@ -34,6 +35,15 @@
     </li>
   </ul>
 {/if}
+
+<ul>
+  <li>
+    microphone permission: {$microphonePermission}
+    {#if $microphonePermission != 'granted'}
+      <button style="all:revert" on:click={promptMicrophonePermission}>prompt</button>
+    {/if}
+  </li>
+</ul>
 
 <ul>
   <li>
