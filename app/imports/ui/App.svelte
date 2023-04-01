@@ -1,12 +1,7 @@
 <script>
-  import Player from './Player.svelte';
-  import Home from './player/Home.svelte';
-
   const path = window.location.pathname
   const params = new URLSearchParams(window.location.search)
   const preview = params.has('preview')
-
-
 </script>
 
 
