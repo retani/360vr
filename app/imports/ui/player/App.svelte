@@ -31,9 +31,17 @@
   <Viewer asset={videoLayer.asset} state={videoLayer.state} />
 {/if}
 
-{#each janusLayers as janusLayer}
-  <Audiostream asset={janusLayer.asset} state={janusLayer.state}/>
-{/each}
+{#if !preview}
+  {#each janusLayers as janusLayer}
+    <Audiostream asset={janusLayer.asset} state={janusLayer.state}/>
+  {/each}
+{:else}
+  {#if janusLayers.length > 0}
+    <div class="microphone-indicator">
+      🎤
+    </div>
+  {/if}
+{/if}
 
 <style>
   .PlayerStatus {
@@ -42,5 +50,13 @@
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
+  }
+
+  .microphone-indicator {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: white;
+    padding: 0.5em;
   }
 </style>
