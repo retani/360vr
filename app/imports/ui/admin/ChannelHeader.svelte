@@ -14,7 +14,7 @@
     {channel.name}
   </h2>
   <a href={url} title={channel.slug} target="_blank" rel="noreferrer">
-    <iframe src={"/c/" + channel.slug + "?preview"} title={url} />
+    <iframe src={"/c/" + channel.slug + "?preview"} title={url} sandbox="allow-scripts allow-same-origin"/>
   </a>
   <span class="viewers" class:active={players.length > 0}> 
     {players.length} viewers
