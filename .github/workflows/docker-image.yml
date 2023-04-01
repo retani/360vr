@@ -31,5 +31,7 @@ jobs:
           context: ./app
           push: true
           tags: intergestalt/360vr:latest
-          cache-from: type=registry,ref=intergestalt/360vr:buildcache
-          cache-to: type=registry,ref=intergestalt/360vr:buildcache,mode=max
+          #cache-from: type=registry,ref=intergestalt/360vr:buildcache
+          #cache-to: type=registry,ref=intergestalt/360vr:buildcache,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
