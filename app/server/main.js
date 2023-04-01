@@ -3,6 +3,8 @@ import { Assets, Channels, Globals } from '/imports/api/collections';
 import { defaultChannels, defaultAssets, channelTemplate } from '/imports/api/seeds';
 import { UserStatus } from 'meteor/mizzao:user-status';
 
+
+import '/imports/api/env';
 import '/imports/api/methods';
 import '/imports/api/publications';
 
@@ -44,5 +46,7 @@ Meteor.startup(async () => {
     console.log("\n\n")
   }), 1000);
   */
+
+  require('/imports/api/mediaserver');
 
 });

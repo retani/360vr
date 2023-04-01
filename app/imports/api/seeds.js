@@ -24,32 +24,8 @@ export const defaultAssets = [
   {
     type: 'video', // audio, video, image
     //locationType: 'url', // url, file
-    name: 'Holger walk 360',
-    url: "https://tube.kh-berlin.de/videos/watch/5db24246-3f3b-4303-b472-8d851bfe3c6f",
-    hasVideo: true,
-    hasAudio: false,
-  },
-  {
-    type: 'video', // audio, video, image
-    //locationType: 'url', // url, file
-    name: 'Amagamma 360',
-    url: "https://tube.kh-berlin.de/videos/watch/6000af6b-13c2-4644-8315-6b6a6c6bc6c4",
-    hasVideo: true,
-    hasAudio: false,
-  },
-  {
-    type: 'video', // audio, video, image
-    //locationType: 'url', // url, file
-    name: 'Live Theta 360',
-    url: "https://tube.kh-berlin.de/videos/embed/b35e7700-efc1-465c-9ed8-da11460aa13d",
-    hasVideo: true,
-    hasAudio: false,
-  },
-  {
-    type: 'video', // audio, video, image
-    //locationType: 'url', // url, file
-    name: 'Local HLS',
-    url: "http://localhost:8000/index.m3u8",
+    name: 'Streeet (local HLS)',
+    url: "/media/street/index.m3u8",
     hasVideo: true,
     hasAudio: true,
   },
