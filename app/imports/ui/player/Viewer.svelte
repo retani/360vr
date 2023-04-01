@@ -114,10 +114,10 @@
     let timeOffset
     if (state.transport == "paused") {
       timeOffset = state.offset
-      paused = true
+      if (video && !video.paused) video.pause()
     } else if (state.transport == "playing") {
       timeOffset = TimeSync.serverTime() - state.startedAt
-      paused = false
+      if (video && video.paused) video.play()
     }
     if (timeOffset && video) {
       const delta = Math.abs(video.currentTime - timeOffset / 1000)
