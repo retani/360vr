@@ -50,7 +50,7 @@ services:
   app:
     image: intergestalt/360vr:latest
     build: 
-      context: ../app
+      context: ./app
     expose:
       - 3000
     networks:
