@@ -10,9 +10,11 @@ const app = express();
 
 // create directory for media files if it does not exist (recursively)
 fs.mkdirSync(LOCAL_MEDIA_PATH, { recursive: true });
+fs.mkdirSync(LOCAL_HLS_PATH, { recursive: true });
 
 console.log("Serving media files from " + LOCAL_MEDIA_PATH);
 
 app.use("/media", express.static(LOCAL_MEDIA_PATH));
+app.use("/hls", express.static(LOCAL_HLS_PATH));
 
 WebApp.connectHandlers.use(app);

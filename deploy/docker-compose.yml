@@ -50,7 +50,7 @@ services:
   app:
     image: intergestalt/360vr:latest
     build: 
-      context: ./app
+      context: ../app
     expose:
       - 3000
     networks:
@@ -59,7 +59,7 @@ services:
     restart: unless-stopped
     volumes:
       #- media:/data/media
-      - ./data/media:/data/media
+      - ../data/media:/data/media
     labels:
       caddy: ${METEOR_URL}
       caddy.reverse_proxy: "{{upstreams 3000}}"
@@ -68,9 +68,8 @@ services:
       ROOT_URL: ${METEOR_URL}
       MONGO_URL: mongodb://mongo:27017/meteor
       HTTP_FORWARDED_COUNT: 1
-      MEDIASERVER_ADDRESS: ${METEOR_URL}
-      MEDIASERVER_PATH: media/
       LOCAL_MEDIA_PATH: /data/media/
+      LOCAL_HLS_PATH: /data/hls/
 
 networks:
   proxy:

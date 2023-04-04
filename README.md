@@ -86,6 +86,20 @@ copy media into `./data/media`
 
 #### HLS
 
-1. generate HLS files
-2. copy HLS files into a subfolder of `./data/media/`, e.g. `./data/media/myvideo/`
-3. set the asset url relative to the main m3u8 file, e.g. `/media/myvideo/index.m3u8`
+HLS versions will be generated on restart
+
+## Development
+
+requirements:
+- `meteorjs`
+
+```bash
+cd app
+cp .env.example .env
+# edit .env
+meteor npm install
+npm run dev
+```
+
+notes:
+- LOCAL_MEDIA_PATH and LOCAL_HLS_PATH need to be absolute paths

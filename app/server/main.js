@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Assets, Channels, Globals } from '/imports/api/collections';
 import { defaultChannels, defaultAssets, channelTemplate } from '/imports/api/seeds';
-import { UserStatus } from 'meteor/mizzao:user-status';
+import { transcodeLocalVideos }  from '/imports/api/transcode';
 
 
 import '/imports/api/env';
@@ -48,5 +48,7 @@ Meteor.startup(async () => {
   */
 
   require('/imports/api/mediaserver');
+
+  transcodeLocalVideos();
 
 });
