@@ -34,6 +34,9 @@ COPY --from=meteor-base $APP_BUNDLE_FOLDER/bundle $APP_BUNDLE_FOLDER/bundle/
 
 RUN bash $SCRIPTS_FOLDER/build-meteor-npm-dependencies.sh
 
+# install ffmpeg (no cache)
+RUN apk add ffmpeg --no-cache
+
 # Start app
 ENTRYPOINT ["/docker/entrypoint.sh"]
 

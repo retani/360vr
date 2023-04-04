@@ -1,5 +1,6 @@
 .meteor/local
 node_modules
+Dockerfile
 
 .git
 .env
