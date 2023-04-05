@@ -14,18 +14,19 @@
 
   const audioVolume      = getContext('audioVolume');
   const audioStatus      = getContext('audioStatus');
+  const connectionId     = getContext('connectionId');
 
   //const janusServer = 'ws://localhost:8188'
   //const janusServer = 'ws://360vr.intergestalt.cloud:8188'
   const janusServer = asset.url
   const room = asset.room
-  let janus, stream, resp, response, session = null
+  let janus, stream, resp, response, session, connection = null
 
   onMount(async () => {
     try {
       $audioStatus = 'connecting'
-      janus = new Janus.Client(janusServer, { keepalive: false, apisecret: asset.apisecret });
-      const connection = await janus.createConnection();
+      janus = new Janus.Client(janusServer, { keepalive: true, apisecret: asset.apisecret });
+      connection = await janus.createConnection();
       $audioStatus = 'connected'
       session = await connection.createSession();
       const plugin = await session.attachPlugin('janus.plugin.audiobridge');
@@ -37,11 +38,11 @@
           console.log(audioElem);
           audioElem.srcObject = new MediaStream(message.streams[0]);
           $audioStatus = "stream attached"
-          if (!paused && !audioElem.paused) audioElem.play();
+          resync()
           //Janus.attachMediaStream(audioElem, message.streams[0]);
         }
       });
-      resp = await plugin.join(room, { display: "Name", quality: 3, token: 'token' });
+      resp = await plugin.join(room, { display: $connectionId, /*quality: 3, token: 'token'*/ });
       stream = await plugin.getUserMedia({ audio: true, video: false });
       response = await plugin.offerStream(stream);
     } catch (err) {
@@ -55,6 +56,10 @@
     if (session) {
       console.log("destroying session janus"); // currently inactive
       await session.destroy();
+    }
+    if (connection) {
+      console.log("closing connection janus");
+      connection.close();
     }
   });
 
