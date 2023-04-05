@@ -67,5 +67,6 @@
     flex: 1;
     text-align: left;
     padding-left: 5px;
+    white-space: nowrap;
   }
 </style>

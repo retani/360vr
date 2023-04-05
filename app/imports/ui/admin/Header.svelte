@@ -22,6 +22,7 @@
   <strong>
     360vr 
   </strong>
+  <a href="/home">Home</a>
   <a href="/dashboard">Dashboard</a>
 </div>
 
@@ -35,5 +36,8 @@
   }
   strong {
     font-weight: bold;
+  }
+  a {
+    margin-left: .5em;
   }
 </style>

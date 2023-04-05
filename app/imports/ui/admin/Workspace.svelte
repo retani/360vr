@@ -3,6 +3,7 @@
   import Header from './Header.svelte';
   import MultiSelect from './MultiSelect.svelte';
   import EventsLog from './EventsLog.svelte';
+  import Viewers from './Viewers.svelte';
 
   export let channels
   export let assets
@@ -20,7 +21,8 @@
     <MultiSelect />
   </div>
   <div class="log">
-    <EventsLog {channels} />
+    <!--EventsLog {channels} /-->
+    <Viewers {channels} {userStatus} />
   </div>
 </div>
 
