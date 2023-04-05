@@ -16,9 +16,7 @@
   let connectionId = writable(null)
   let browserEvents = writable([])
 
-  //setContext('audioPaused', writable(true))
   setContext('audioVolume', writable(1))
-  setContext('audioCurrentTime', writable(null))
   setContext('audioStatus', writable('disconnected'))
 
   setContext('channel', channel)

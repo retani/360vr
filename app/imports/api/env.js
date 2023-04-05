@@ -13,7 +13,7 @@ if (!LOCAL_HLS_PATH) {
   process.exit(1)
 }
 
-console.log("local_media_path:", LOCAL_MEDIA_PATH)
-console.log("local_hls_path:", LOCAL_HLS_PATH)
+console.log("meteor root url:  ", Meteor.absoluteUrl())
 
-
+console.log("local_media_path: ", LOCAL_MEDIA_PATH)
+console.log("local_hls_path:   ", LOCAL_HLS_PATH)

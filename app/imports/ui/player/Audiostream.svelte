@@ -13,22 +13,21 @@
   $: paused =  state ? state.transport != "playing" : true
 
   const audioVolume      = getContext('audioVolume');
-  const audioCurrentTime = getContext('audioCurrentTime');
   const audioStatus      = getContext('audioStatus');
 
   //const janusServer = 'ws://localhost:8188'
   //const janusServer = 'ws://360vr.intergestalt.cloud:8188'
   const janusServer = asset.url
   const room = asset.room
-  let janus = null
+  let janus, stream, resp, response, session = null
 
   onMount(async () => {
     try {
       $audioStatus = 'connecting'
-      janus = new Janus.Client(janusServer, { keepalive: 30, apisecret: asset.apisecret });
+      janus = new Janus.Client(janusServer, { keepalive: false, apisecret: asset.apisecret });
       const connection = await janus.createConnection();
       $audioStatus = 'connected'
-      const session = await connection.createSession();
+      session = await connection.createSession();
       const plugin = await session.attachPlugin('janus.plugin.audiobridge');
       plugin.on('message', (message) => { console.log("msg: ", message); }); // For debugging
       plugin.on('pc:track:remote', (message) => { 
@@ -42,26 +41,50 @@
           //Janus.attachMediaStream(audioElem, message.streams[0]);
         }
       });
-      const resp = await plugin.join(room, { display: "Name", quality: 3, token: 'token' });
-      const stream = await plugin.getUserMedia({ audio: true, video: false });
-      const response = await plugin.offerStream(stream);
+      resp = await plugin.join(room, { display: "Name", quality: 3, token: 'token' });
+      stream = await plugin.getUserMedia({ audio: true, video: false });
+      response = await plugin.offerStream(stream);
     } catch (err) {
       console.error(err);
       $audioStatus = 'error'    
     }                                   
   });
 
-  onDestroy(() => {
-    if (janus && janus.destroy) {
-      console.log("destroying janus"); // currently inactive
-      janus.destroy();
+  onDestroy( async () => {
+    console.log("destroying audiostream layer", janus, stream, resp, response);
+    if (session) {
+      console.log("destroying session janus"); // currently inactive
+      await session.destroy();
     }
   });
+
+  const onAudioEvent = (event) => {
+    console.log("audio resyncing because: ", event.type)
+    resync()
+  }
+  
+
+  const resync = () => {
+    if (state.transport == "paused") {
+      if (audioElem && !audioElem.paused) audioElem.pause()
+    } else if (state.transport == "playing") {
+      if (audioElem && audioElem.paused) audioElem.play()
+    }
+  }
+
 </script>
 
 <audio 
   bind:this={audioElem} 
   bind:paused={paused}
   bind:volume={$audioVolume}
-  bind:currentTime={$audioCurrentTime}
+  on:loadedmetadata={onAudioEvent}
+  on:loadstart={onAudioEvent}
+  on:ended={onAudioEvent}
+  on:canplay={onAudioEvent}
+  on:canplaythrough={onAudioEvent}
+  on:stalled={onAudioEvent}
+  on:error={onAudioEvent}
+  on:waiting={onAudioEvent}
+  on:suspend={onAudioEvent}  
 />
