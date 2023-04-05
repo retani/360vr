@@ -1,4 +1,24 @@
+<script>
+  import { Meteor } from 'meteor/meteor';
+  
+  let status, connected;
+
+  $m: status = Meteor.status().status;
+  $m: connected = Meteor.status().connected;
+</script>
+
 <div class="container">
+  <span title="Connection status: {status}">
+    {#if connected}
+      <strong>
+        ✅
+      </strong>
+    {:else}
+      <strong>
+        ⚠️
+      </strong>
+    {/if}
+  </span>
   <strong>
     360vr 
   </strong>

@@ -2,7 +2,8 @@
   "name": "360master",
   "private": true,
   "scripts": {
-    "dev": "dotenv meteor run",
+    "dev": "dotenv meteor run --exclude-archs web.browser.legacy",
+    "db:reset": "meteor reset",
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",

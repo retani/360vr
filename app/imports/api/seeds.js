@@ -24,8 +24,16 @@ export const defaultAssets = [
   {
     type: 'video', // audio, video, image
     //locationType: 'url', // url, file
+    name: 'Mary (local HLS)',
+    url: "/hls/mary.mp4/index.m3u8",
+    hasVideo: true,
+    hasAudio: true,
+  },
+  {
+    type: 'video', // audio, video, image
+    //locationType: 'url', // url, file
     name: 'Streeet (local HLS)',
-    url: "/media/street/index.m3u8",
+    url: "/hls/street.mp4/index.m3u8",
     hasVideo: true,
     hasAudio: true,
   },

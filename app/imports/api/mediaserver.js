@@ -13,6 +13,7 @@ fs.mkdirSync(LOCAL_MEDIA_PATH, { recursive: true });
 fs.mkdirSync(LOCAL_HLS_PATH, { recursive: true });
 
 console.log("Serving media files from " + LOCAL_MEDIA_PATH);
+console.log("Serving HLS files from " + LOCAL_HLS_PATH);
 
 app.use("/media", express.static(LOCAL_MEDIA_PATH));
 app.use("/hls", express.static(LOCAL_HLS_PATH));

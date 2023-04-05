@@ -1,6 +1,6 @@
 
 LOCAL_MEDIA_PATH    = process.env.LOCAL_MEDIA_PATH
-LOCAL_HLS_PATH      = process.env.LOCAL_MEDIA_PATH
+LOCAL_HLS_PATH      = process.env.LOCAL_HLS_PATH
 
 // exit if the environment variables are not set
 if (!LOCAL_MEDIA_PATH) {
