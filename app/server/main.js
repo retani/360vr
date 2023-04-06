@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Assets, Channels, Globals } from '/imports/api/collections';
 import { defaultChannels, defaultAssets, channelTemplate } from '/imports/api/seeds';
 import { transcodeLocalVideos }  from '/imports/api/transcode';
+import { startCron }  from '/imports/api/cron';
 
 
 import '/imports/api/env';
@@ -50,5 +51,7 @@ Meteor.startup(async () => {
   require('/imports/api/mediaserver');
 
   transcodeLocalVideos();
+
+  startCron();
 
 });

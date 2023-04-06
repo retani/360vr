@@ -20,7 +20,7 @@
   <div class="scenes">
     <MultiSelect />
   </div>
-  <div class="log">
+  <div class="viewers">
     <!--EventsLog {channels} /-->
     <Viewers {channels} {userStatus} />
   </div>
@@ -44,12 +44,12 @@
   }
   .scenes {
     grid-row: 3;
-    grid-column: 1;
+    grid-column: 2;
     border-top: 1px solid #555;
   }
-  .log {
+  .viewers {
     grid-row: 3;
-    grid-column: 2;
+    grid-column: 1;
     border-top: 1px solid #555;
     overflow: auto;
   }
