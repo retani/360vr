@@ -1,6 +1,7 @@
 <script>
   import Time from "svelte-time";
   import DeviceDetector from "device-detector-js";
+  import NiceConnectionId from '../common/NiceConnectionId.svelte';
 
   export let channels
   export let userStatus
@@ -23,7 +24,7 @@
     {@const device = deviceDetector.parse(viewer.userAgent)}
       <li class="viewer">
         <span class="id" title={JSON.stringify(viewer)}>
-          {viewer._id}
+          <NiceConnectionId connectionId={viewer._id}/>
         </span>
         <span class="ip">
           {viewer.ipAddr}
@@ -47,7 +48,7 @@
 <style>
   .viewer {
     display: grid;
-    grid-template-columns: 1fr 8em 1fr 1em 2fr;
+    grid-template-columns: 4.2em 8em 1fr 1em 2fr;
     grid-template-rows: 1fr;
     grid-gap: 0px 10px;
     grid-template-areas: "id ip channel updateCounter agent";
@@ -57,10 +58,6 @@
   }
   .id {
     grid-area: id;
-    max-width: 5em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
   .agent {
     grid-area: agent;
@@ -70,6 +67,7 @@
   }
   .ip {
     grid-area: ip;
+    font-family: monospace;
   }
   .channel {
     grid-area: channel;

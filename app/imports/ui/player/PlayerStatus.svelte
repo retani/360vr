@@ -2,6 +2,7 @@
   import { Meteor } from "meteor/meteor";
   import { getContext } from 'svelte';
   import { microphonePermission, promptMicrophonePermission } from './permissionsStore.js';
+  import NiceConnectionId from '../common/NiceConnectionId.svelte';
 
   const audioVolume      = getContext('audioVolume');
   const audioStatus      = getContext('audioStatus');
@@ -29,7 +30,7 @@
       status: {$ddpStatus} 
     </li>
     <li>
-      connectionId: {$connectionId}
+      connectionId: <NiceConnectionId connectionId={$connectionId} />
     </li>
   </ul>
 {/if}
