@@ -8,7 +8,7 @@
   
   let subReady = false;
   
-  $: viewers = userStatus.filter(p => !p.preview).sort((a,b)=>(a.channelSlug == b.channelSlug ?1:-1)) || []
+  $: viewers = userStatus.filter(p => !p.preview && p.channelSlug).sort((a,b)=>(a.channelSlug == b.channelSlug ?1:-1)) || []
 
   const rtf1 = new Intl.RelativeTimeFormat('en', { style: 'narrow' });
   
@@ -27,7 +27,10 @@
           {viewer.ipAddr}
         </span>
         <span class="channel">
-          {viewer.channelSlug}
+          {viewer.channelSlug || "-"}
+        </span>
+        <span class="updateCounter">
+          {viewer.updateCounter || "-"}
         </span>
         <span class="agent" title={viewer.userAgent}>
           {viewer.userAgent}
@@ -42,10 +45,10 @@
 <style>
   .viewer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 8em 1fr 1em 1fr;
     grid-template-rows: 1fr;
     grid-gap: 0px 10px;
-    grid-template-areas: "id ip channel agent";
+    grid-template-areas: "id ip channel updateCounter agent";
     padding: 0.25rem;
     border-bottom: 1px solid #555;
     font-size: 0.8rem;
@@ -69,5 +72,8 @@
   }
   .channel {
     grid-area: channel;
+  }
+  .updateCounter {
+    grid-area: updateCounter;
   }
 </style>

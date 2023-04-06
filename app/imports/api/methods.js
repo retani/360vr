@@ -149,12 +149,17 @@ Meteor.methods({
 
   },
 
-  updateConnectionData({connectionId, slug, preview}) {
+  updateConnectionData({connectionId, slug, preview, updateCounter}) {
     console.log("updateConnectionData", connectionId, slug);
     UserStatus.connections.update(connectionId, {
       $set: {
         "channelSlug": slug,
-        preview
+        // set preview if it is not undefined
+        ...preview !== undefined && { preview },
+        // set route if it is not undefined
+        //...route !== undefined && { route }
+        // set updateCounter if it is not undefined
+        ...updateCounter !== undefined && { updateCounter }
       }
     });
   },

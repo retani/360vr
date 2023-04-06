@@ -12,6 +12,7 @@
   import { Channels, Assets } from '/imports/api/collections';
   import Loading from '../Loading.svelte';
   import Workspace from './Workspace.svelte';
+  import ConnectionStatusUpdater from '../common/ConnectionStatusUpdater.svelte';
   
   let channelsReady = false;
   let assetsReady = false;
@@ -33,6 +34,8 @@
   $: allReady = channelsReady && assetsReady && userStatusReady;
 
 </script>
+
+<ConnectionStatusUpdater slug="admin"/>
 
 <Loading loading={allReady}>
   <Workspace {channels} {assets} {userStatus}/>

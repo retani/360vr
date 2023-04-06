@@ -2,6 +2,7 @@
   import { Meteor } from "meteor/meteor";
   import { Channels } from '../../api/collections';
   import Loading from '../Loading.svelte';
+  import ConnectionStatusUpdater from '../common/ConnectionStatusUpdater.svelte';
   
   let channelsReady = false;
   let channels = [];
@@ -11,9 +12,11 @@
     channelsReady = Meteor.subscribe("channels.list").ready();
     channels = Channels.find().fetch();
   }
+
   // more information about $m at https://atmospherejs.com/zodern/melte#tracker-statements
 </script>
 
+<ConnectionStatusUpdater slug="home"/>
 
 <div class="container">
   <main>
