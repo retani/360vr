@@ -44,6 +44,14 @@ graph TD
     
 ```
 
+## How to enable microphone permissions
+
+### Oculus Browser
+
+- ![Oculus Browser Permissions - Page](./docs/oculus-browser-permissions-1.jpg)
+- ![Oculus Browser Permissions - App](./docs/oculus-browser-permissions-2.jpg)
+- ![Oculus Browser Permissions - App](./docs/oculus-browser-permissions-3.jpg)
+
 ## Deploy
 
 Prerequisites:
