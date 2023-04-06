@@ -1,11 +1,12 @@
 <script>
-  import { Meteor } from "meteor/meteor";
-  import { Events } from '/imports/api/collections';
   import Time from "svelte-time";
+  import DeviceDetector from "device-detector-js";
 
   export let channels
   export let userStatus
   
+  const deviceDetector = new DeviceDetector();
+
   let subReady = false;
   
   $: viewers = userStatus.filter(p => !p.preview && p.channelSlug).sort((a,b)=>(a.channelSlug == b.channelSlug ?1:-1)) || []
@@ -19,6 +20,7 @@
 
   <ul class="container">
     {#each viewers as viewer}
+    {@const device = deviceDetector.parse(viewer.userAgent)}
       <li class="viewer">
         <span class="id" title={JSON.stringify(viewer)}>
           {viewer._id}
@@ -32,8 +34,8 @@
         <span class="updateCounter">
           {viewer.updateCounter || "-"}
         </span>
-        <span class="agent" title={viewer.userAgent}>
-          {viewer.userAgent}
+        <span class="agent" title={JSON.stringify(device)}>
+          {device?.client?.name} {device?.client?.version} {device?.os?.name}
         </span>
       </li>
     {/each}
@@ -45,7 +47,7 @@
 <style>
   .viewer {
     display: grid;
-    grid-template-columns: 1fr 8em 1fr 1em 1fr;
+    grid-template-columns: 1fr 8em 1fr 1em 2fr;
     grid-template-rows: 1fr;
     grid-gap: 0px 10px;
     grid-template-areas: "id ip channel updateCounter agent";
@@ -62,7 +64,6 @@
   }
   .agent {
     grid-area: agent;
-    max-width: 5em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
