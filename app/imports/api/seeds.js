@@ -38,6 +38,14 @@ export const defaultAssets = [
     hasAudio: true,
   },
   {
+    type: 'video', // audio, video, image
+    //locationType: 'url', // url, file
+    name: 'Earth (local HLS)',
+    url: "/hls/earth.mp4/index.m3u8",
+    hasVideo: true,
+    hasAudio: true,
+  },
+  {
     type: 'janusaudio',
     name: 'Audio Conference 1 (1001)',
     url: "wss://janus.360.igst.cloud",
