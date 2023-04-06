@@ -1,12 +1,12 @@
 <script>
-  import { getHash } from 'emoji-hash-gen';
+  import ehg, { getHash } from 'emoji-hash-gen';
 
   export let connectionId = null;
 </script>
 
 {#if connectionId}
   <div class="id">
-    {[...getHash(connectionId)].slice(0,3).join(' ')}
+    {getHash(connectionId, {length: 3, base: Object.keys(ehg.table).length})}
   </div>
 {/if}
 
