@@ -6,6 +6,7 @@
   import Viewer from './Viewer.svelte';
   import Audiostream from './Audiostream.svelte';
   import TextLayer from './TextLayer.svelte';
+  import SceneLayer from './SceneLayer.svelte';
 
   export let slug;
   export let preview;
@@ -15,6 +16,7 @@
   $: textLayer = $channel && $channel.layers && $channel.layers.find(layer => layer?.asset.type == 'text');
   $: videoLayer = $channel && $channel.layers && $channel.layers.find(layer => layer?.asset.type == 'video');
   $: janusLayers = $channel && $channel.layers && $channel.layers.filter(layer => layer?.asset.type == 'janusaudio') || [];
+  $: sceneLayers = $channel && $channel.layers && $channel.layers.filter(layer => layer?.asset.type == 'scene') || [];
 </script>
 
 {#if !preview}
@@ -29,6 +31,12 @@
 
 {#if videoLayer}
   <Viewer asset={videoLayer.asset} state={videoLayer.state} />
+{/if}
+
+{#if sceneLayers.length > 0}
+  {#each sceneLayers as sceneLayer}
+    <SceneLayer asset={sceneLayer.asset} state={sceneLayer.state} />
+  {/each}
 {/if}
 
 {#if !preview}

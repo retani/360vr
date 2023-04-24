@@ -21,6 +21,14 @@ export const channelTemplate = {
 }
 
 export const defaultAssets = [
+  /*{
+    type: 'scene', // audio, video, image
+    //locationType: 'url', // url, file
+    name: 'night glb',
+    url: "/media/night.glb",
+    hasVideo: true,
+    hasAudio: false,
+  },*/
   {
     type: 'video', // audio, video, image
     //locationType: 'url', // url, file
