@@ -1,4 +1,4 @@
-import { Channels } from './collections.js';
+import { Channels } from './collections';
 
 function checkForEndedAssets() {
   // finc channels that have layers with assets that are playing and have a duration

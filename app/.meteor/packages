@@ -22,3 +22,4 @@ hot-module-replacement@0.5.2  # Update client in development without reloading t
 zodern:types            # Enable types from meteor/atmosphere packages
 mizzao:user-status
 mizzao:timesync
+ostrio:files

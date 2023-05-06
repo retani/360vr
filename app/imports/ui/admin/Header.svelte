@@ -1,5 +1,6 @@
 <script>
   import { Meteor } from 'meteor/meteor';
+  import { Link } from 'svelte-navigator';
   
   let status, connected;
 
@@ -22,8 +23,12 @@
   <strong>
     360vr 
   </strong>
-  <a href="/">Home</a>
-  <a href="/dashboard">Dashboard</a>
+  <span class="links">
+    <Link to="/">Home</Link>
+    <Link to="/admin">Launcher</Link>
+    <Link to="/admin/viewers">Connections</Link>
+    <!--Link to="/admin/files">Files</Link-->
+  </span>
 </div>
 
 <style>
@@ -37,7 +42,7 @@
   strong {
     font-weight: bold;
   }
-  a {
+  .links > :global(*) {
     margin-left: .5em;
   }
 </style>

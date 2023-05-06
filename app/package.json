@@ -20,7 +20,9 @@
     "meteor-node-stubs": "^1.2.5",
     "simple-hls": "git+https://github.com/retani/simple-hls.git",
     "svelte": "^3.57.0",
+    "svelte-file-dropzone": "^2.0.1",
     "svelte-icons-pack": "^2.1.0",
+    "svelte-navigator": "^3.2.2",
     "three": "^0.150.1"
   },
   "devDependencies": {

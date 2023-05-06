@@ -3,7 +3,6 @@
   import DeviceDetector from "device-detector-js";
   import NiceConnectionId from '../common/NiceConnectionId.svelte';
 
-  export let channels
   export let userStatus
   
   const deviceDetector = new DeviceDetector();
