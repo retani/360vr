@@ -20,11 +20,12 @@
       </strong>
     {/if}
   </span>
-  <strong>
-    360vr 
-  </strong>
+  <Link to="/">
+    <strong>
+      360vr 
+    </strong>
+  </Link>
   <span class="links">
-    <Link to="/">Home</Link>
     <Link to="/admin">Launcher</Link>
     <Link to="/admin/viewers">Connections</Link>
     <Link to="/admin/files">Files</Link>

@@ -8,25 +8,25 @@
 <Router>
 
   <Route path="/">
-    {#await import(`./player/Home.svelte`) then Home}
+    {#await import(/* @vite-ignore */`./player/Home.svelte`) then Home}
       <svelte:component this={Home.default} {preview} />
     {/await}
   </Route>
 
   <Route path="/dashboard">
-    {#await import(`./Dashboard.svelte`) then Dashboard}
+    {#await import(/* @vite-ignore */`./Dashboard.svelte`) then Dashboard}
       <svelte:component this={Dashboard.default} />
     {/await}
   </Route>
 
   <Route path="/c/:slug" let:params>
-    {#await import(`./Player.svelte`) then Player}
+    {#await import(/* @vite-ignore */`./Player.svelte`) then Player}
       <svelte:component this={Player.default} slug={params.slug} {preview}  />
     {/await}
   </Route>
 
   <Route path="/admin/*">
-    {#await import(`./admin/Admin.svelte`) then Admin}
+    {#await import(/* @vite-ignore */`./admin/Admin.svelte`) then Admin}
       <svelte:component this={Admin.default} />
     {/await}
   </Route>

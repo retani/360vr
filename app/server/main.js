@@ -50,7 +50,7 @@ Meteor.startup(async () => {
 
   require('/imports/api/mediaserver');
 
-  transcodeLocalVideos();
+  //transcodeLocalVideos();
 
   startCron();
 

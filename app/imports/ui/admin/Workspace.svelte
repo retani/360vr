@@ -1,5 +1,5 @@
 <script>
-  import { Router, Link, Route } from "svelte-navigator";
+  import { useMatch } from "svelte-navigator";
   import Header from './Header.svelte';
   import Launcher from './Launcher.svelte';
   import Viewers from './Viewers.svelte';
@@ -9,6 +9,12 @@
   export let assets
   export let userStatus
   export let mediafiles
+
+  const root = useMatch("")
+  const viewers = useMatch("viewers")
+  const files = useMatch("files")
+
+  $: console.log("XXX", $root, $viewers, $files)
 </script>
 
 <div class="container">
@@ -16,16 +22,16 @@
     <Header />
   </div>
   <div class="main">
-    <Route path="/">
+    <div class="tab" class:active={$root}>
       <Launcher {channels} {assets} {userStatus} />
-    </Route>
-    <Route path="/viewers">
+    </div>
+    <div class="tab" class:active={$viewers}>
       <Viewers {userStatus} />
-    </Route>
-    <Route path="/files">
+    </div>
+    <div class="tab" class:active={$files}>
       <Files {mediafiles}/>
-    </Route>
     </div>  
+  </div>
 </div>
 
 <style>
@@ -39,6 +45,10 @@
   }
   .main {
     flex: 1;
+  }
+
+  .tab:not(.active) {
+    display: none;
   }
 
 </style>
