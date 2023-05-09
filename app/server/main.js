@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
+import { WebApp } from 'meteor/webapp';
 import { Assets, Channels, Globals } from '/imports/api/collections';
 import { defaultChannels, defaultAssets, channelTemplate } from '/imports/api/seeds';
 import { transcodeLocalVideos }  from '/imports/api/transcode';
 import { startCron }  from '/imports/api/cron';
-
 
 import '/imports/api/env';
 import '/imports/api/methods';

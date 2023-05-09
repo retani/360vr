@@ -3,11 +3,12 @@
   import Header from './Header.svelte';
   import Launcher from './Launcher.svelte';
   import Viewers from './Viewers.svelte';
-  //import Files from './Files.svelte';
+  import Files from './Files.svelte';
 
   export let channels
   export let assets
   export let userStatus
+  export let mediafiles
 </script>
 
 <div class="container">
@@ -21,9 +22,9 @@
     <Route path="/viewers">
       <Viewers {userStatus} />
     </Route>
-    <!--Route path="/files">
-      <Files />
-    </Route-->
+    <Route path="/files">
+      <Files {mediafiles}/>
+    </Route>
     </div>  
 </div>
 

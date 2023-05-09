@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import { WebApp } from 'meteor/webapp';
 import express from 'express';
+import { setupMediaServer } from '/imports/api/mediafileserver'
 
 const app = express();
 
@@ -17,5 +18,7 @@ console.log("Serving HLS files from " + LOCAL_HLS_PATH);
 
 app.use("/media", express.static(LOCAL_MEDIA_PATH));
 app.use("/hls", express.static(LOCAL_HLS_PATH));
+
+setupMediaServer(app, LOCAL_MEDIA_PATH);
 
 WebApp.connectHandlers.use(app);

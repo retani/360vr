@@ -1,5 +1,5 @@
 <script>
-  import Dropzone from "svelte-file-dropzone";
+  import Dropzone from "svelte-file-dropzone/src/lib/components/Dropzone.svelte";
 
   let files = {
     accepted: [],
@@ -28,7 +28,7 @@
     }
   }
 
-  const uploadEndpoint = InterkitClient.getUploadEndpoint()
+  const uploadEndpoint = "/api/upload"
   console.log("uploadEndpoint", uploadEndpoint);
 
   function uploadFile(file) {

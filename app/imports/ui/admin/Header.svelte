@@ -27,7 +27,7 @@
     <Link to="/">Home</Link>
     <Link to="/admin">Launcher</Link>
     <Link to="/admin/viewers">Connections</Link>
-    <!--Link to="/admin/files">Files</Link-->
+    <Link to="/admin/files">Files</Link>
   </span>
 </div>
 
