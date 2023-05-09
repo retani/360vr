@@ -1,1 +1,3 @@
 node_modules/
+vite.config.mjs.timestamp-*
+vite.config.js.timestamp-*
