@@ -27,8 +27,9 @@
   </Link>
   <span class="links">
     <Link to="/admin">Launcher</Link>
-    <Link to="/admin/viewers">Connections</Link>
+    <Link to="/admin/assets">Assets</Link>
     <Link to="/admin/files">Files</Link>
+    <Link to="/admin/viewers">Connections</Link>
   </span>
 </div>
 

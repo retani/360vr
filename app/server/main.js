@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Assets, Channels, Globals } from '/imports/api/collections';
 import { defaultChannels, defaultAssets, channelTemplate } from '/imports/api/seeds';
-import { transcodeLocalVideos }  from '/imports/api/transcode';
 import { startCron }  from '/imports/api/cron';
 
 import '/imports/api/env';
@@ -50,8 +49,22 @@ Meteor.startup(async () => {
 
   require('/imports/api/mediaserver');
 
-  //transcodeLocalVideos();
-
   startCron();
 
 });
+
+process.on('exit', () => {
+  console.log("EXITING");
+});
+
+process.on('SIGTERM', () => {
+  // catch reload
+  console.log("SIGTERM");
+  process.exit();
+} );
+
+process.on('uncaughtException', (err) => {
+  console.log("UNCAUGHT EXCEPTION", err);
+});
+
+

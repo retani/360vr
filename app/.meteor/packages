@@ -23,4 +23,3 @@ zodern:types            # Enable types from meteor/atmosphere packages
 mizzao:user-status
 mizzao:timesync
 ostrio:files
-vite:bundler

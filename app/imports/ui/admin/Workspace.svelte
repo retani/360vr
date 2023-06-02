@@ -4,6 +4,7 @@
   import Launcher from './Launcher.svelte';
   import Viewers from './Viewers.svelte';
   import Files from './Files.svelte';
+  import Assets from './Assets.svelte';
 
   export let channels
   export let assets
@@ -13,6 +14,7 @@
   const root = useMatch("")
   const viewers = useMatch("viewers")
   const files = useMatch("files")
+  const assetsRoute = useMatch("assets")
 
   $: console.log("XXX", $root, $viewers, $files)
 </script>
@@ -31,6 +33,9 @@
     <div class="tab" class:active={$files}>
       <Files {mediafiles}/>
     </div>  
+    <div class="tab" class:active={$assetsRoute}>
+      <Assets {assets}/>
+    </div>
   </div>
 </div>
 
