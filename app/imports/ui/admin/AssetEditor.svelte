@@ -1,12 +1,13 @@
 <script>
+  import { navigate } from 'svelte-navigator';
   import { assetTypes } from '/imports/util/assetTypes.js'
+  import Button from './Button.svelte'
 
-  export let assets
-  export let assetId
+  export let currentAsset
   export let mediafiles
 
-  let asset = assets.find(a => a._id === assetId) || {}
-  let originalAsset = {...asset}
+  let originalAsset = {...currentAsset}
+  let asset = {...currentAsset}
   let saveButtonText = "Save"
 
   const handleSubmit = async () => {
@@ -20,7 +21,7 @@
     assetToSave.type = asset.type
     assetToSave.hidden = asset.hidden
     assetToSave = {...assetToSave, ...selectedAssetType.constants}
-    await Meteor.call('saveAsset', {
+    await Meteor.callAsync('saveAsset', {
       asset: assetToSave
       }
     )
@@ -30,8 +31,17 @@
     return false
   };
 
+  const onDelete = async () => {
+    //if (confirm("Are you sure you want to delete this asset?")) {
+      Meteor.call('deleteAsset', {
+        assetId: asset._id
+      })
+      navigate('/admin/assets')
+    //}
+  }
+
   $: selectedAssetType = assetTypes.find(t => t.key === asset.type)
-  $: fields = Object.entries(selectedAssetType.fields).map(([key, value]) => ({key, ...value}))
+  $: fields = selectedAssetType && Object.entries(selectedAssetType.fields).map(([key, value]) => ({key, ...value}))
   $: modified = JSON.stringify(asset) !== JSON.stringify(originalAsset)
 
 </script>
@@ -39,12 +49,21 @@
 <form on:submit|preventDefault={handleSubmit}>
 
   <fieldset class="controls">
-    <button type="submit" disabled={!modified} >{saveButtonText}</button>
+    <Button type="submit" disabled={!modified} style="min-width: 5em" >{saveButtonText}</Button>
     <!-- reset button -->
-    <button type="button" disabled={!modified} on:click={() => asset = {...originalAsset}}>Reset</button>
+    <div class="secondary">
+      <Button disabled={!modified} on:click={() => asset = {...originalAsset}}>Reset Changes</Button>
+      <Button kind="ghost" on:click={onDelete}>delete</Button>
+    </div>
   </fieldset>
 
-  <h1>{originalAsset.name}</h1>
+  <h1>
+    {#if originalAsset.name === undefined}
+    New Asset
+    {:else}
+    {originalAsset.name}
+    {/if}
+  </h1>
 
   <fieldset class="type">
     <label class="typeSelect">
@@ -141,20 +160,7 @@
   fieldset {
     margin-bottom: 2em;
   }
-  button {
-    background: #ccc;
-    color: black;
-    border-radius: .25em;
-    padding: .5em;
-    cursor: pointer;
-  }
-  button:not(:disabled):hover {
-    background: #ddd;
-  }
-  button:disabled {
-    color: #999;
-    cursor: not-allowed;
-  }
+
   input {
     border: 1px solid #ccc;
     width: 100%;

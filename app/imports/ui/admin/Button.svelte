@@ -7,6 +7,7 @@
   export let type = null
   export let title = null
   export let kind = "primary" // primary, ghost
+  export let disabled = false
 
   const icon = {
     play: Play,
@@ -16,7 +17,7 @@
   
 </script>
 
-<button on:click class={kind}>
+<button on:click class={kind} {disabled}>
   {#if icon}
     <Icon src={icon} size="1em" {title} />
   {/if}
@@ -32,11 +33,15 @@
     height: 2em;
     cursor: pointer;
   }
-  button:hover {
+  button:not[disabled]:hover {
     filter: brightness(1.25);
   }
   button:active {
     filter: brightness(0.75);
+  }
+  button[disabled] {
+    cursor: default;
+    pointer-events: none;
   }
   .ghost {
     background: transparent;

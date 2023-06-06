@@ -187,5 +187,18 @@ Meteor.methods({
 
   saveAsset({asset}) {
     Assets.update(asset._id, asset);
+  },
+
+  createAsset() {
+    const asset = {
+      type: "text",
+      name: "New Asset",
+    }
+    return Assets.insert(asset);
+  },
+
+  deleteAsset({assetId}) {
+    Assets.remove(assetId);
   }
+
 });

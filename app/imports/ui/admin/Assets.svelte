@@ -1,29 +1,42 @@
 <script>
-  import { Route, Link, location } from 'svelte-navigator';
+  import { Route, navigate } from 'svelte-navigator';
   import AssetHeader from './AssetHeader.svelte';
   import AssetEditor from './AssetEditor.svelte';
+  import Button from './Button.svelte';
 
   export let assets;
   export let mediafiles;
+
+  const onCreate = async () => {
+    const id = await Meteor.callAsync("createAsset")
+    console.log(id)
+    if (id) {
+      navigate(`/admin/assets/${id}`)
+    }
+  }
 
 </script>
 
 <div class="container">
   <Route path="/assets/*id" let:params>
-  <div class="list">
-    {#each assets as asset}
-        <div class="item" class:hidden={asset.hidden} class:selected={ asset._id == params.id }>
-          <AssetHeader {asset} />
-        </div>
-    {/each}
-  </div>
-  <div class="editor">
-    {#if params.id}
-      {#key params.id}
-        <AssetEditor {assets} assetId={params.id} {mediafiles} />
-      {/key}
-    {/if}    
-  </div>
+    {@const currentAsset = assets.find(a => a._id == params.id)}
+    <div class="list">
+      {#each assets as asset}
+          <div class="item" class:hidden={asset.hidden} class:selected={ asset._id == params.id }>
+            <AssetHeader {asset} />
+          </div>
+      {/each}
+      <div class="create">
+        <Button on:click={onCreate}>Create Asset</Button>
+      </div>
+    </div>
+    <div class="editor">
+      {#if currentAsset}
+        {#key currentAsset._id}
+          <AssetEditor {currentAsset} {mediafiles} />
+        {/key}
+      {/if}    
+    </div>
   </Route>    
 </div>
 
@@ -62,5 +75,9 @@
     padding: 1em;
     height: 100%;
     background-color: #333;
+  }
+  .create {
+    padding: 1em;
+    
   }
 </style>
