@@ -40,6 +40,17 @@
     //}
   }
 
+  const truncateFilename = (n) => {
+    const len = 30
+    var ext = n.substring(n.lastIndexOf(".") + 1, n.length).toLowerCase();
+    var filename = n.replace('.' + ext,'');
+    if(filename.length <= len) {
+        return n;
+    }
+    filename = filename.substr(0, len) + (n.length > len ? '[...]' : '');
+    return filename + '.' + ext;
+  }
+
   $: selectedAssetType = assetTypes.find(t => t.key === asset.type)
   $: fields = selectedAssetType && Object.entries(selectedAssetType.fields).map(([key, value]) => ({key, ...value}))
   $: modified = JSON.stringify(asset) !== JSON.stringify(originalAsset)
@@ -107,7 +118,7 @@
             <select bind:value={asset[field.key]}>
               <option value="">-- None --</option>
               {#each mediafiles as mediafile}
-                <option value={mediafile._id}>{mediafile.name}</option>
+                <option value={mediafile._id}>{truncateFilename(mediafile.name)}</option>
               {/each}
             </select>
           {/if}
