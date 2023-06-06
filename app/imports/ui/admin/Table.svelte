@@ -57,7 +57,7 @@
     inset-block-start: 0; /* "top" */
   }
   tr {
-    height: 2rem;
+    height: 1.5rem;
   }
   td {
     height: inherit;
@@ -74,6 +74,7 @@
     top: -1em;
     right: 0;
     padding: 5px;
+    letter-spacing: 0.1em;
   }
   .rowlabel {
     display: block;
@@ -83,6 +84,6 @@
     left: 0;
     padding: 5px;
     width: 100%;
-    
+    letter-spacing: 0.1em;
   }
 </style>

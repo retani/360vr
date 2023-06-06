@@ -33,7 +33,6 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    
     height: 100%;
   }
   .list {
@@ -44,7 +43,6 @@
   .item {
     display: inline-block;
     width: 100%;
-    padding: 1ex;
   }
   .item::after {
     border-bottom: solid 1px #ccc;

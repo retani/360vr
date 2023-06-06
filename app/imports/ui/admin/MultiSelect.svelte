@@ -34,22 +34,39 @@
     });
   }
 
+  const onOpen = () => {
+    $selectedAssetsChannels = [];
+  }
+
+  const onClose = () => {
+    $selectedAssetsChannels = false;
+  }
+
 
 </script>
 
 <div class="container" data-amount={amount}>
-  <span class="amount">
-    { amount } selected
-  </span>
-  <span class="controls">
-    <ButtonBar>
-      <Button on:click={onLoad}>Load</Button>
-      <Button on:click={onPlay} type="play" />
-      <Button on:click={onPause} type="pause" />
-      <Button on:click={onStop} type="stop" />
-      <Button on:click={onClear} kind="ghost">Clear</Button>
-    </ButtonBar>
-  </span>
+  {#if !$selectedAssetsChannels}
+    <Button on:click={onOpen}>
+      enable multi-select
+    </Button>
+  {:else}
+    <span class="amount">
+      { amount } selected
+    </span>
+    <span class="controls">
+      <ButtonBar>
+        <Button on:click={onLoad}>Load</Button>
+        <Button on:click={onPlay} type="play" />
+        <Button on:click={onPause} type="pause" />
+        <Button on:click={onStop} type="stop" />
+        <Button on:click={onClear} kind="ghost">Clear</Button>
+      </ButtonBar>
+    </span>
+    <span class="close">
+      <Button on:click={onClose} >Close</Button>
+    </span>
+  {/if}
 </div>
 
 <style>
@@ -60,15 +77,18 @@
     padding: 0.5em;
     background: #333;
     color: white;
+    height: 3em;
   }
-  [data-amount="0"] > * {
+  /*[data-amount="0"] > * {
     visibility: hidden;
-  }
+  }*/
   .controls {
     border: 2px solid #ff0;
   }
   .amount {
     padding-right: 0.5em;
   }
-  
+  .close {
+    padding-left: 0.5em;
+  }
 </style>

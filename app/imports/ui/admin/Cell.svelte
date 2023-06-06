@@ -19,7 +19,7 @@
     state = layer?.state
   }
 
-  $: selectedItem = $selectedAssetsChannels.find(a => a.assetId === asset._id && a.channelId === channel._id)
+  $: selectedItem = $selectedAssetsChannels && $selectedAssetsChannels.find(a => a.assetId === asset._id && a.channelId === channel._id)
 
   const toggleSelected = () => {
     if (!!selectedItem) {
@@ -44,9 +44,11 @@
 
 <div class="container" class:playing={state?.transport == "playing"} class:loaded={loadedAsset} class:selected={selectedItem}>
 
-  <label class="select">
-    <input type="checkbox" checked={!!selectedItem} on:click={toggleSelected} />
-  </label>
+  {#if $selectedAssetsChannels}
+    <label class="select">
+      <input type="checkbox" checked={!!selectedItem} on:click={toggleSelected} />
+    </label>
+  {/if}
 
   <span class="transport">
     {#if loadedAsset}
