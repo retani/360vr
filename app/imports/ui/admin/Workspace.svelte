@@ -52,6 +52,10 @@
     flex: 1;
   }
 
+  .tab {
+    height: 100%;
+  }
+
   .tab:not(.active) {
     display: none;
   }

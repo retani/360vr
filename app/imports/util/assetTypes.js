@@ -14,10 +14,6 @@ const assetTypes = [
         'url': {
           type: "url",
         },
-        'hasAudio': {
-          type: "boolean",
-          default: true,
-        },
         'loop': {
           type: "boolean",
           default: false,
@@ -30,6 +26,7 @@ const assetTypes = [
       constants: {
         'hasVideo': true,
         'hasTime': true,
+        'hasAudio': true,
       }
     },
     

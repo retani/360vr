@@ -186,8 +186,6 @@ Meteor.methods({
   },
 
   saveAsset({asset}) {
-    Assets.update(asset._id, {
-      $set: asset
-    });
+    Assets.update(asset._id, asset);
   }
 });

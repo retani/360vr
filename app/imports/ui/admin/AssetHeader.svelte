@@ -1,9 +1,12 @@
 <script>
+  import { Route, Link, location } from 'svelte-navigator';
+
   export let asset;
 </script>
 
+<Link to="/admin/assets/{asset._id}">
+
 <div class="container">
-  
   <span class="type" title={asset.type}>
     {#if asset.type == "video"}
       V
@@ -19,35 +22,34 @@
   </span>
 
   <span class="modalities">
-    {#if asset.hasMicrophone}
-      <span title="uses microphone">
-        🎤
-      </span>
-    {/if}
-    {#if asset.hasVideo}
-      <span title="has video">
-        🎞️
+    {#if asset.hasImage || asset.hasVideo}
+      <span title="has image">
+        👁️
       </span>
     {/if}
     {#if asset.hasAudio}
       <span title="has audio">
-        🔈
+        👂
       </span>
     {/if}
-    {#if asset.hasImage}
-      <span title="has image">
-        🖼️
+    {#if asset.hasMicrophone}
+      <span title="uses microphone">
+        👄
+      </span>
+    {/if}
+    {#if asset.hasTime}
+      <span class="time" title="is time based media">
+        ⏱️
       </span>
     {/if}
   </span>
 
   <span class="name">
-    <!--a href="{asset.url}" title={asset.url} target="_blank" rel="noreferrer"-->
-      {asset.name}
-    <!--/a-->
+    {asset.name}
   </span>
-</div>
 
+</div>
+</Link>
 <style>
   .container {
     display: flex;
@@ -58,6 +60,7 @@
     padding-right: 5px;
     font-size: 0.8em;
     border-right: 1px solid #555;
+    position: relative;
   }
   .type {
     min-width: 20px;
@@ -70,5 +73,10 @@
     text-align: left;
     padding-left: 5px;
     white-space: nowrap;
+  }
+  .time {
+    position: absolute;
+    left:1.1em;
+    bottom:-0.25em;
   }
 </style>

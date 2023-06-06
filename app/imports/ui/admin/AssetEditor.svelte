@@ -12,12 +12,16 @@
   const handleSubmit = async () => {
     console.log(asset)
     saveButtonText = "Saving..."
+    let assetToSave = {}
+    for (let field of fields) {
+      assetToSave[field.key] = asset[field.key]
+    }
+    assetToSave._id = asset._id
+    assetToSave.type = asset.type
+    assetToSave.hidden = asset.hidden
+    assetToSave = {...assetToSave, ...selectedAssetType.constants}
     await Meteor.call('saveAsset', {
-      asset:
-        {
-          ...asset, 
-          ...selectedAssetType.constants
-        }
+      asset: assetToSave
       }
     )
     originalAsset = {...asset}
@@ -32,19 +36,41 @@
 
 </script>
 
-<h1>Asset Setup</h1>
-
 <form on:submit|preventDefault={handleSubmit}>
-  <label class="typeSelect">
-    <span class="title">
-      Type
-    </span>
-    <select bind:value={asset.type}>
-      {#each assetTypes as type }
-        <option value={type.key}>{type.key}</option>
-      {/each}
-    </select>
-  </label>
+
+  <fieldset class="controls">
+    <button type="submit" disabled={!modified} >{saveButtonText}</button>
+    <!-- reset button -->
+    <button type="button" disabled={!modified} on:click={() => asset = {...originalAsset}}>Reset</button>
+  </fieldset>
+
+  <h1>{originalAsset.name}</h1>
+
+  <fieldset class="type">
+    <label class="typeSelect">
+      <span class="title">
+        Type
+      </span>
+      <div>
+        {#each assetTypes as type (type.key)}
+          <label>
+            <input type="radio" bind:group={asset.type} value={type.key}>
+            {type.key}
+          </label>
+        {/each}
+      </div>
+    </label>
+  </fieldset>
+
+  <fieldset class="meta">
+    <label>
+      <span class="title">
+        Hide
+      </span>
+      <input type="checkbox" bind:checked={asset.hidden} />
+    </label>
+  </fieldset>
+
   {#if asset.type && selectedAssetType.fields}
     <fieldset class="fields">
       {#each fields as field }
@@ -71,10 +97,6 @@
     </fieldset>
   {/if}
 
-  <button type="submit" disabled={!modified} >{saveButtonText}</button>
-  <!-- reset button -->
-  <button type="button" disabled={!modified} on:click={() => asset = {...originalAsset}}>Reset</button>
-  
 </form>
 
 <style>
@@ -83,10 +105,17 @@
     width: 100%;
   }
 
+  fieldset.controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   label {
     display: flex;
     flex-direction: row;
     padding: .25em;
+    cursor: default;
   }
   label .title {
     width: 7em;
@@ -110,7 +139,7 @@
   }
 
   fieldset {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
   }
   button {
     background: #ccc;
@@ -132,8 +161,12 @@
     flex:1;
     padding: 0 .25em;
   }
-  input[type="checkbox"] {
+  input[type="checkbox"], input[type="radio"] {
     all: revert;
     padding:.25em;
+  }
+
+  h1 {
+    font-size: 1.5em;
   }
 </style>

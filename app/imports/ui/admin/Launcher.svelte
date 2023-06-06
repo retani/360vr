@@ -9,7 +9,7 @@
 
 <div class="container">
   <div class="table">
-    <Table {channels} {assets} {userStatus}/>
+    <Table {channels} assets={assets.filter(a => !a.hidden)} {userStatus}/>
   </div>
   <div class="scenes">
     <MultiSelect />
