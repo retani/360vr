@@ -30,7 +30,7 @@
       <Viewers {userStatus} />
     </div>
     <div class="tab" class:active={$files}>
-      <Files {mediafiles}/>
+      <Files {mediafiles} {assets} />
     </div>  
     <div class="tab" class:active={$assetsRoute}>
       <Assets {assets} {mediafiles}/>

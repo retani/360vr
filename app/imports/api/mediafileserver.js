@@ -1,9 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { getDuration } from 'get-media-duration'
+import { cancelTranscoding } from './transcode.js'
+
 const _fs = require('fs');
 const multer = require('multer');
 const upload = multer({ dest: '/tmp' }) // Temp dir for multer
+
 
 //const getMP3Duration = require('get-mp3-duration')
 
@@ -106,10 +109,14 @@ if (Meteor.isServer) {
         }
       }
     },
-    "mediafile.delete": ({key, projectId}) => {
-      if(key && projectId && Meteor.userId()) {
-        console.log("mediafile.delete", key, projectId)
-        MediaFiles.remove({'meta.key': key, 'meta.projectId': projectId})
+    "mediafile.delete": ({id}) => {
+      if(id) {
+        console.log("mediafile.delete", id)
+        const mediafile = MediaFiles.findOne({_id: id})
+        if (mediafile.meta.transcoder == "transcoding") {
+          cancelTranscoding()
+        }
+        MediaFiles.remove(id)
       }
     }
   })

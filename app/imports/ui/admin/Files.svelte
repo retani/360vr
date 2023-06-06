@@ -3,6 +3,7 @@
   import MediaFileList from './MediaFileList.svelte';
 
   export let mediafiles;
+  export let assets;
 </script>
 
 <div class="container">
@@ -10,7 +11,7 @@
     <Upload />
   </div>
   <div class="mediafiles">
-    <MediaFileList {mediafiles} />
+    <MediaFileList {mediafiles} {assets} />
   </div>
 </div>
 

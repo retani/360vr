@@ -112,7 +112,13 @@ function initTranscoding({onEncodeStart=null, onEncodeDone=null, onEncodeFail=nu
 
 }
 
+function cancelTranscoding() {
+    // note: running transcoders will continue in the background (which is stpid)
+    transcoding = false
+}
+
 export {
     initTranscoding,
-    transcodeLocalVideos
+    transcodeLocalVideos,
+    cancelTranscoding
 }
