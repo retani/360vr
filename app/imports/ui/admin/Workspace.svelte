@@ -16,7 +16,6 @@
   const files = useMatch("files")
   const assetsRoute = useMatch("assets/*")
 
-  $: console.log("XXX", $root, $viewers, $files)
 </script>
 
 <div class="container">

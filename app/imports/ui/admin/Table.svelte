@@ -1,4 +1,6 @@
 <script>
+  import { Link } from 'svelte-navigator'
+
   import Cell from './Cell.svelte'
   import ChannelHeader from './ChannelHeader.svelte'
   import AssetHeader from './AssetHeader.svelte'
@@ -41,6 +43,13 @@
         
 </table>
 
+{#if assets.length === 0}
+  <div class="noassets">
+    No assets available. 
+    <Link to="/admin/assets" style="border-bottom: 1px dotted currentColor">Create Assets</Link>
+  </div>
+{/if}
+
 <style>
   table {
     border-collapse: collapse;
@@ -64,6 +73,7 @@
   }
   .topleft {
     position: relative;
+    min-width: 10em;
   }
   .columnlabel {
     display: block;
@@ -85,5 +95,8 @@
     padding: 5px;
     width: 100%;
     letter-spacing: 0.1em;
+  }
+  .noassets {
+    padding: 1rem;
   }
 </style>

@@ -27,12 +27,12 @@ Meteor.startup(async () => {
   }
 
   // populate assets
-  if (Assets.find().count() === 0) {
+  /*if (Assets.find().count() === 0) {
     console.log("Seeding assets");
     for (let asset of defaultAssets) {
       Assets.insert(asset);
     }
-  }
+  }*/
 
   /*
   Meteor.setInterval(Meteor.bindEnvironment(() => {

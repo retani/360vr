@@ -32,7 +32,7 @@ Meteor.methods({
     // resolve url for mediafile, if it has one
     if (asset.mediafile) {
       const mediafile = MediaFiles.findOne(asset.mediafile);
-      if (asset.type == 'video') {
+      if (asset.type == 'video' && mediafile.meta.transcoder == "done") {
         asset.url = `/hls/${mediafile._id}.${mediafile.ext}/index.m3u8`;
       } else {
         asset.url = `/media/${mediafile._id}.${mediafile.ext}`;
@@ -191,7 +191,6 @@ Meteor.methods({
 
   createAsset() {
     const asset = {
-      type: "text",
       name: "New Asset",
     }
     return Assets.insert(asset);

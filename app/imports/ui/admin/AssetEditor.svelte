@@ -1,5 +1,5 @@
 <script>
-  import { navigate } from 'svelte-navigator';
+  import { navigate, Link } from 'svelte-navigator';
   import { assetTypes } from '/imports/util/assetTypes.js'
   import Button from './Button.svelte'
 
@@ -115,12 +115,16 @@
           {:else if field.type=="boolean"}
             <input type="checkbox" bind:checked={asset[field.key]} />
           {:else if field.type=="mediafile"}
-            <select bind:value={asset[field.key]}>
-              <option value="">-- None --</option>
-              {#each mediafiles as mediafile}
-                <option value={mediafile._id}>{truncateFilename(mediafile.name)}</option>
-              {/each}
-            </select>
+            {#if mediafiles.length === 0}
+              <div>No media files available. <Link style="border-bottom: 1px dotted currentColor" to="/admin/files">Upload media</Link></div>
+            {:else}
+              <select bind:value={asset[field.key]}>
+                <option value="">-- None --</option>
+                {#each mediafiles as mediafile}
+                  <option value={mediafile._id}>{truncateFilename(mediafile.name)}</option>
+                {/each}
+              </select>
+            {/if}
           {/if}
         </label>
       {/each}
