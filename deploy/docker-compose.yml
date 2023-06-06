@@ -59,7 +59,7 @@ services:
     restart: unless-stopped
     volumes:
       #- media:/data/media
-      - ../data/media:/data/media
+      - ../data:/data
     labels:
       caddy: ${METEOR_URL}
       caddy.reverse_proxy: "{{upstreams 3000}}"

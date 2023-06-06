@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { UserStatus } from 'meteor/mizzao:user-status';
 import { Assets, Channels, Globals, Events } from '/imports/api/collections';
+import { MediaFiles } from '/imports/api/mediafileserver';
 
 const initialPlayState = {
   transport: "stopped",
@@ -28,13 +29,23 @@ Meteor.methods({
       throw new Meteor.Error('Asset not found');
     }
 
+    // resolve url for mediafile, if it has one
+    if (asset.mediafile) {
+      const mediafile = MediaFiles.findOne(asset.mediafile);
+      if (asset.type == 'video') {
+        asset.url = `/hls/${mediafile._id}.${mediafile.ext}/index.m3u8`;
+      } else {
+        asset.url = `/media/${mediafile._id}.${mediafile.ext}`;
+      }
+    }
+
     layer = {
       _id: asset._id,
       asset,
       state: initialPlayState
     }
 
-    console.log(`Loading asset "${asset.name}" on channel ${channel.slug}`);
+    console.log(`Loading asset "${asset.name}" on channel ${channel.slug}`, layer);
 
     // copy asset into channel.layers if not already there
     Channels.update(channelId, {
@@ -172,6 +183,11 @@ Meteor.methods({
       data,
       createdAt: new Date()
     });
-  }
+  },
 
+  saveAsset({asset}) {
+    Assets.update(asset._id, {
+      $set: asset
+    });
+  }
 });

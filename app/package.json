@@ -25,7 +25,8 @@
     "svelte-icons-pack": "^2.1.0",
     "svelte-navigator": "^3.2.2",
     "three": "^0.150.1",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.2.0",

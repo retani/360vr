@@ -39,7 +39,7 @@ async function transcodeSomething (source, outputDir,{onEncodeStart=null, onEnco
 
     // check if the video is already transcoded
     if (fs.existsSync(doneFile)) {
-        console.log('Video already transcoded', source);
+        //console.log('Video already transcoded', source);
         return;
     }
 

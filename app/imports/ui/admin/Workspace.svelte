@@ -14,7 +14,7 @@
   const root = useMatch("")
   const viewers = useMatch("viewers")
   const files = useMatch("files")
-  const assetsRoute = useMatch("assets")
+  const assetsRoute = useMatch("assets/*")
 
   $: console.log("XXX", $root, $viewers, $files)
 </script>
@@ -34,7 +34,7 @@
       <Files {mediafiles}/>
     </div>  
     <div class="tab" class:active={$assetsRoute}>
-      <Assets {assets}/>
+      <Assets {assets} {mediafiles}/>
     </div>
   </div>
 </div>

@@ -13,6 +13,8 @@
       I
     {:else if asset.type == "text"}
       T
+    {:else if asset.type == "scene"}
+      S
     {/if}
   </span>
 
@@ -40,9 +42,9 @@
   </span>
 
   <span class="name">
-    <a href="{asset.url}" title={asset.url} target="_blank" rel="noreferrer">
+    <!--a href="{asset.url}" title={asset.url} target="_blank" rel="noreferrer"-->
       {asset.name}
-    </a>
+    <!--/a-->
   </span>
 </div>
 
