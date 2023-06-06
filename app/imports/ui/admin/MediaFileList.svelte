@@ -1,5 +1,6 @@
 <script>
   import { Meteor } from 'meteor/meteor';
+  import Spinner from './Spinner.svelte';
 
   export let mediafiles;
 </script>
@@ -11,6 +12,7 @@
       <th class="size">Size</th>
       <th class="type">Type</th>
       <th class="url">URL</th>
+      <th class="duration">Duration</th>
       <th class="transcoder">Video Transcoder</th>
     </tr>
   </thead>
@@ -21,10 +23,26 @@
         <td class="size">{mediafile.size}</td>
         <td class="type">{mediafile.type}</td>
         <td class="url">{mediafile.url}</td>
-        <td class="transcoder">{mediafile.meta.transcoder || ""}
-        {#if mediafile.meta.transcodedSizeInBytes}
-          ({Math.ceil(mediafile.meta.transcodedSizeInBytes / 1024 / 1024)} MB)
-        {/if}
+        <td class="duration">
+          {#if mediafile.meta.duration}
+            {mediafile.meta.duration}s
+          {:else}
+            —
+          {/if}
+        </td>
+        <td class="transcoder">
+          {#if mediafile.meta.transcoder}
+            {#if mediafile.meta.transcoder == "transcoding"}
+              <Spinner />
+            {/if}
+            {mediafile.meta.transcoder}
+          {:else}
+            —
+          {/if}
+
+          {#if mediafile.meta.transcodedSizeInBytes}
+            ({Math.ceil(mediafile.meta.transcodedSizeInBytes / 1024 / 1024)} MB)
+          {/if}
         </td>
       </tr>
     {/each}

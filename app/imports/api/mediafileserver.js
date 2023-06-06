@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
+import { getDuration } from 'get-media-duration'
 const _fs = require('fs');
 const multer = require('multer');
 const upload = multer({ dest: '/tmp' }) // Temp dir for multer
@@ -126,7 +127,7 @@ export const setupMediaServer = (app) => {
     if (req.file !== undefined /*&& req.file.mimetype.substr(0, 6) == 'image/'*/) {
     
         _fs.stat(req.file.path, function (_statError, _statData) { 
-          _fs.readFile(req.file.path, function (_readError, _readData) {
+          _fs.readFile(req.file.path, async function (_readError, _readData) {
             if (_readError) {
               console.log(_readError);
               res.status(500).json({error: "internal server error"})
@@ -138,6 +139,12 @@ export const setupMediaServer = (app) => {
               //  duration = getMP3Duration(_readData)
               //  console.log("getMp3Duration", duration);
               //}
+
+              try {
+                duration = await getDuration(req.file.path)
+              } catch (error) {
+                console.log("No duration available for file", req.file.originalname)
+              }
 
               const meta = {
                 createdAt: new Date(),
