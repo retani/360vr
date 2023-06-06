@@ -26,6 +26,7 @@
 
   const logBrowserEvent = (data) => {
     browserEvents.set([...$browserEvents, data])
+    if (!$channel) return
     Meteor.call('logBrowserEvent', {
       data, 
       channelId: $channel._id, 
