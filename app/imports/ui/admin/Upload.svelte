@@ -15,7 +15,8 @@
     files.accepted = [...files.accepted, ...acceptedFiles];
     files.rejected = [...files.rejected, ...fileRejections];
     for (let i = 0; i < acceptedFiles.length; i++) {
-      if (acceptedFiles[i].type == "text/plain") {
+      uploadFile(acceptedFiles[i]);
+      /*if (acceptedFiles[i].type == "text/plain") {
         const text = await acceptedFiles[i].text()
         //console.log(text)
         files.uploaded = [...files.uploaded, acceptedFiles[i]];
@@ -24,7 +25,7 @@
         if (uploadedTrigger) executeTrigger(uploadedTrigger, result)
       } else {
         uploadFile(acceptedFiles[i]);
-      }
+      }*/
     }
   }
 
@@ -63,7 +64,7 @@
       const status = files.uploaded.findIndex( f => f === file) > -1 ? "uploaded" 
         : files.failed.findIndex( f => f === file) > -1 ? "failed"
         : "uploading..."
-      const color = status == "uploaded" ? "darkgreen" : status == "failed" ? "red" : "blue"
+      const color = status == "uploaded" ? "darkgreen" : status == "failed" ? "red" : "#55f"
 
       return {
         file,
@@ -71,11 +72,13 @@
         color
       }
     })
+    filesStatus = filesStatus.filter( item => item.status != "uploaded")
   }
 
 </script>
 
-<Dropzone on:drop={handleFilesSelect} multiple={true} />
+<br />
+<Dropzone on:drop={handleFilesSelect} multiple={true} containerStyles="background-color: grey; color: white;"/>
 
 <ol>
   {#each filesStatus as item}
@@ -88,3 +91,18 @@
   {/each}
 
 </ol>
+
+<style>
+  ol {
+    min-height: 2rem;
+  }
+  li {
+    height: rem;
+    line-height: 2rem;
+    padding: 0 1rem;
+    border-radius: 0.25rem;
+    margin-right: 1rem;
+    background-color: #333;
+    display: inline-block;
+  }
+</style>
