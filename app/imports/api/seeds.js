@@ -1,19 +1,9 @@
 export const defaultChannels = [
   {
-    slug: 'group1',
-    name: 'Group 1',
+    slug: 'channel1',
+    name: 'Channel 1',
     type: 'headset',
   },
-  {
-    slug: 'group2',
-    name: 'Group 2',
-    type: 'headset',
-  },
-  {
-    slug: 'group3',
-    name: 'Group 3',
-    type: 'headset',
-  }
 ];
 
 export const channelTemplate = {
@@ -21,6 +11,15 @@ export const channelTemplate = {
 }
 
 export const defaultAssets = [
+  {
+    type: 'text',
+    name: 'Welcome Text',
+    text: 'Welcome to the 360° VR Demo',
+    hasImage: true,
+  },
+]
+
+const exampleAssets = [
   /*{
     type: 'scene', // audio, video, image
     //locationType: 'url', // url, file
