@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { getDuration } from 'get-media-duration'
-import { cancelTranscoding } from './transcode.js'
+import { cancelTranscoding, removeHlsFolder } from './transcode.js'
 
 const _fs = require('fs');
 const multer = require('multer');
@@ -116,6 +116,8 @@ if (Meteor.isServer) {
         if (mediafile.meta.transcoder == "transcoding") {
           cancelTranscoding()
         }
+        const filename = mediafile._id + "." + mediafile.ext
+        removeHlsFolder(filename)
         MediaFiles.remove(id)
       }
     }

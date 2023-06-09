@@ -117,8 +117,17 @@ function cancelTranscoding() {
     transcoding = false
 }
 
+function removeHlsFolder(filename) {
+    const subdir = filename
+    const outputDir = path.join(outputBaseDir, subdir);
+    if (fs.existsSync(outputDir)) {
+        fs.rmdirSync(outputDir, { recursive: true });
+    }
+}
+
 export {
     initTranscoding,
     transcodeLocalVideos,
-    cancelTranscoding
+    cancelTranscoding,
+    removeHlsFolder
 }
