@@ -198,6 +198,23 @@ Meteor.methods({
 
   deleteAsset({assetId}) {
     Assets.remove(assetId);
+  },
+
+  saveChannel({channel}) {
+    Channels.update(channel._id, channel);
+  },
+
+  createChannel() {
+    const channel = {
+      name: "New Channel",
+      slug: "new-channel",
+      layers: []
+    }
+    return Channels.insert(channel);
+  },
+
+  deleteChannel({channelId}) {
+    Channels.remove(channelId);
   }
 
 });

@@ -14,10 +14,10 @@
   <thead>
     <th class="topleft">
       <span class="columnlabel">
-        Channels
+        <Link to="/admin/channels">Channels</Link>
       </span>
       <span class="rowlabel">
-        Assets
+        <Link to="/admin/assets">Assets</Link>
       </span>
     </th>
     {#each channels as channel}

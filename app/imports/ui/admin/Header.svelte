@@ -2,10 +2,20 @@
   import { Meteor } from 'meteor/meteor';
   import { Link } from 'svelte-navigator';
   
+  export let activeRoute;
+
   let status, connected;
 
   $m: status = Meteor.status().status;
   $m: connected = Meteor.status().connected;
+
+  const tabs = [
+    {to: "/admin", route: 'root', label: 'Launcher'},
+    {to: "/admin/channels", route: 'channels', label: 'Channels'},
+    {to: "/admin/assets", route: 'assets', label: 'Assets'},
+    {to: "/admin/files", route: 'files', label: 'Media'},
+    {to: "/admin/viewers", route: 'viewers', label: 'Connections'}
+  ]
 </script>
 
 <div class="container">
@@ -26,10 +36,13 @@
     </strong>
   </Link>
   <span class="links">
-    <Link to="/admin">Launcher</Link>
-    <Link to="/admin/assets">Assets</Link>
-    <Link to="/admin/files">Media</Link>
-    <Link to="/admin/viewers">Connections</Link>
+    {#each tabs as tab}
+      <span class="link" class:active={activeRoute === tab.route} title={tab.label}>
+        <Link to={tab.to}>
+          {tab.label}
+        </Link>
+      </span>
+    {/each}
   </span>
 </div>
 
@@ -44,7 +57,16 @@
   strong {
     font-weight: bold;
   }
-  .links > :global(*) {
+  .link {
     margin-left: .5em;
+    padding: 2px 2px 0 4px;
+    border-radius: 2px 2px 0 0;
+  }
+  .link.active {
+    border-bottom: 1px solid currentColor;
+    background-color: #555;
+  }
+  .link:not(.active):hover {
+    border-bottom: 1px dotted currentColor;
   }
 </style>

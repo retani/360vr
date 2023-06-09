@@ -1,33 +1,29 @@
 <script>
   import { navigate, Link } from 'svelte-navigator';
   import { assetTypes } from '/imports/util/assetTypes.js'
-  import Button from './Button.svelte'
+  import EditorForm from './EditorForm.svelte'
 
   export let currentAsset
   export let mediafiles
 
   let originalAsset = {...currentAsset}
   let asset = {...currentAsset}
-  let saveButtonText = "Save"
 
   const handleSubmit = async () => {
     console.log(asset)
-    saveButtonText = "Saving..."
     let assetToSave = {}
     for (let field of fields) {
       assetToSave[field.key] = asset[field.key]
     }
     assetToSave._id = asset._id
     assetToSave.type = asset.type
-    assetToSave.hidden = asset.hidden
+    assetToSave.hidden = asset.hidden || false
     assetToSave = {...assetToSave, ...selectedAssetType.constants}
     await Meteor.callAsync('saveAsset', {
       asset: assetToSave
       }
     )
     originalAsset = {...asset}
-    saveButtonText = "Saved"
-    setTimeout(() => saveButtonText = "Save", 1000)
     return false
   };
 
@@ -38,6 +34,10 @@
       })
       navigate('/admin/assets')
     //}
+  }
+
+  const onReset = () => {
+    asset = {...originalAsset}
   }
 
   const truncateFilename = (n) => {
@@ -57,16 +57,7 @@
 
 </script>
 
-<form on:submit|preventDefault={handleSubmit}>
-
-  <fieldset class="controls">
-    <Button type="submit" disabled={!modified} style="min-width: 5em" >{saveButtonText}</Button>
-    <!-- reset button -->
-    <div class="secondary">
-      <Button disabled={!modified} on:click={() => asset = {...originalAsset}}>Reset Changes</Button>
-      <Button kind="ghost" on:click={onDelete}>delete</Button>
-    </div>
-  </fieldset>
+<EditorForm {modified} {originalAsset} {onDelete} {onReset} {handleSubmit}>
 
   <h1>
     {#if originalAsset.name === undefined}
@@ -95,7 +86,7 @@
   <fieldset class="meta">
     <label>
       <span class="title">
-        Hide
+        Hidden
       </span>
       <input type="checkbox" bind:checked={asset.hidden} />
     </label>
@@ -131,19 +122,9 @@
     </fieldset>
   {/if}
 
-</form>
+</EditorForm>
 
 <style>
-  form {
-    line-height: 1.5em;
-    width: 100%;
-  }
-
-  fieldset.controls {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
 
   label {
     display: flex;
@@ -185,9 +166,5 @@
   input[type="checkbox"], input[type="radio"] {
     all: revert;
     padding:.25em;
-  }
-
-  h1 {
-    font-size: 1.5em;
   }
 </style>
