@@ -14,6 +14,7 @@
   $: visibilityRegainedEvents = ($browserEvents || []).filter(e => e == "visibility_visible")
 
   let video
+  let hls
 
   let camera, scene, renderer;
 
@@ -26,8 +27,11 @@
 
   $: {
     if (metadataloaded && mounted) {
-      paused = state.transport != "playing";
-      console.log("paused: ", paused);
+      const newPaused = state.transport != "playing";
+      if (newPaused != paused) {
+        paused = newPaused;
+        console.log("paused: ", paused);
+      }
     }
   }
   
@@ -53,7 +57,17 @@
       // 
 
       if (Hls.isSupported()) {
-        var hls = new Hls.default();
+        hls = new Hls.default({
+          //maxStarvationDelay: 1,
+        });
+
+        //console.log('Hls', Hls)
+        //console.log('hls', hls)
+
+        hls.on("hlsError", function (event, data) {
+          console.warn(event, data);
+        });
+
         hls.loadSource(videoSrc);
         hls.attachMedia(video);
       }
@@ -96,6 +110,8 @@
     if (session) session.end()
     // remove VRButton
     if (VRButtonElem) VRButtonElem.remove()
+    // destroy hls
+    if (hls) hls.destroy()
   });
 
   //const onCanPlay = () => {

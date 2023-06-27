@@ -1,6 +1,7 @@
 import {Transcoder} from 'simple-hls'
 import fs from 'node:fs';
 import path from 'node:path';
+import { renditions } from './transcoder-renditions.js';
 
 const sourceDir     = process.env.LOCAL_MEDIA_PATH
 const outputBaseDir = process.env.LOCAL_HLS_PATH
@@ -43,7 +44,7 @@ async function transcodeSomething (source, outputDir,{onEncodeStart=null, onEnco
         return;
     }
 
-    const t = new Transcoder(source, outputDir, {showLogs: false});
+    const t = new Transcoder(source, outputDir, {showLogs: false, renditions});
 
     try {
         console.log('Transcoding Video', source, "to", outputDir)
