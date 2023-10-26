@@ -48,9 +48,9 @@ graph TD
 
 ### Oculus Browser
 
-- ![Oculus Browser Permissions - Page](./docs/oculus-browser-permissions-1.jpg)
-- ![Oculus Browser Permissions - App](./docs/oculus-browser-permissions-2.jpg)
-- ![Oculus Browser Permissions - App](./docs/oculus-browser-permissions-3.jpg)
+- ![Oculus Browser Permissions - Page](./media/oculus-browser-permissions-1.jpg)
+- ![Oculus Browser Permissions - App](./media/oculus-browser-permissions-2.jpg)
+- ![Oculus Browser Permissions - App](./media/oculus-browser-permissions-3.jpg)
 
 ## Deploy
 
