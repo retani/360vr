@@ -1,2 +1,3 @@
-- [Read Me](README)
-- [Example Second Page](second-page)
+- [Server Setup](server_setup)
+- [Admin Interface](admin_interface)
+- [Clients Guide](clients_guide.md)
