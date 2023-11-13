@@ -1,113 +1,38 @@
-# 360vr
+# 360vr 
 
-```mermaid
+360vr is a system to control 360° Videos on multiple devices simulatenously and connect them via live audio conference rooms.
 
-graph TD
+Features:
+- Sync videos on multiple clients
+- Remotely start, pause and stop videos
+- Supports 360° videos on VR goggles
+- Auto re-sync when connection is lost
+- Videos adapt to bandwidth via HLS streaming
+- Connect individual clients with live audio conferences
+- Audio conferences powered by janusaudio
 
-    subgraph Services
-      meteor
-      janus
-      peertube
-    end
+## Demo
 
-    subgraph App
-      svelte
-      hls
-      subgraph Interface
-        threejs
-        janusaudio
-      end
-    end
+There is a demo instance running at [360.igst.cloud](https://360.igst.cloud)
 
-    subgraph Admin
-      scenes
-      assets
-      players
-      channels
-    end
-    
-    meteor ---- svelte
-    janusaudio --- janus
-    hls --- peertube
+## License
 
-    svelte --- threejs
-    hls --- threejs
+The software is MIT licenced and open source. Anybody may use it, there is no liability.
 
-    svelte --- janusaudio
+## How to use
 
-    assets -.- peertube
-    scenes -.- meteor
-    players -.- svelte
-    channels -.- players
-    
-    camera --- peertube
-    
-```
+In oder to use it, you need to set up you own 360vr server and connect it to a web domain.
 
-## How to enable microphone permissions
+Once set up, you can upload your assets: videos, images, text. Videos are automatically transcoded into several HLS versions.
 
-### Oculus Browser
+In the web interface, you can set up several independent channels to play the media. Each channel generates a URL for the lients to connect to. Many clients can connect to each channel.
 
-- ![Oculus Browser Permissions - Page](./docs/oculus-browser-permissions-1.jpg)
-- ![Oculus Browser Permissions - App](./docs/oculus-browser-permissions-2.jpg)
-- ![Oculus Browser Permissions - App](./docs/oculus-browser-permissions-3.jpg)
+Clients are web browsers, typically inside VR headsets (Oculus browser, etc). Your audience needs to open the cannnel URL in the browser. You can see who is connected in the admin interface.
 
-## Deploy
+Once the clients are connected, you can control the video and audio conference channels in the admin interface. Clients can choose to view the videos in immersive mode at will.
 
-Prerequisites:
-- a server with `docker` and  `docker compose`
-- a domain name, example: `360vr.intergestalt.cloud`
+## Docs
 
-1. set up DNS for subdomains
-    - `360vr.intergestalt.cloud`
-    - `*.360vr.intergestalt.cloud`
-2. set up network for reverse proxy
-    - `docker network create proxy`
-3. configure variables in `.env`
-    - `cd deploy`
-    - `cp .env.example .env`
-    - edit `.env
-4. configure janus
-    - set public ip in `nat_1_1_mapping` in `janus/etc/janus/janus.jcfg.live`, see https://towardsaws.com/setting-up-janus-webrtc-on-aws-a8aa8914b0c6`
-5. start services
-    - `cd deploy`
-    - `docker compose build`
-    - `docker compose up -d`
-
-### optional: use coturn
-
-In order to be independent from google you can setup your own TURN server:
-
-```
-docker run -d --network=host \
-           -e DETECT_EXTERNAL_IP=yes \
-           -e DETECT_RELAY_IP=yes \
-           coturn/coturn \
-           -n --log-file=stdout
-```
-
-and adjust 2 lines in `janus/etc/janus/janus.jcfg.live`
-
-### add media
-
-copy media into `./data/media`
-
-#### HLS
-
-HLS versions will be generated on restart
-
-## Development
-
-requirements:
-- `meteorjs`
-
-```bash
-cd app
-cp .env.example .env
-# edit .env
-meteor npm install
-npm run dev
-```
-
-notes:
-- LOCAL_MEDIA_PATH and LOCAL_HLS_PATH need to be absolute paths
+- [Server Setup](docs/server_setup.md)
+- [Admin Interface](docs/admin_interface)
+- [Clients Guide](docs/clients_guide.md)
