@@ -10,8 +10,10 @@
   <title>Awesome Docsify Site</title>
   <meta name="description" content="An awesome docsify site for publishing some content on the web.">
 
-  <!-- Default Theme (see https://docsify.js.org/#/themes) -->
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <!-- Theme: Simple (light + dark) -->
+  <link rel="stylesheet" media="(prefers-color-scheme: light)" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+  <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+
 
 </head>
 
@@ -23,6 +25,8 @@
     // Docsify Configuration (see https://docsify.js.org/#/configuration)
     window.$docsify = {
       name: '360vr',
+      coverpage: true,
+      //onlyCover: true,
 
       // Sidebar Configuration
       auto2top: true,
@@ -53,6 +57,9 @@
   <!-- Recommended -->
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
+
+  <!-- docsify-themeable -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
 
 </body>
 </html>

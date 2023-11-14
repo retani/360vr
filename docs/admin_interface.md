@@ -4,7 +4,7 @@ Visit the `/admin` route to see the admin interface.
 
 For example, if your web domain is `360.igst.cloud`, the admin interface is at [https://360.igst.cloud/admin](https://360.igst.cloud/admin)
 
-![admin interface](media/admin_interface_sections.png)
+![admin interface](_media/admin_interface_sections.png)
 
 ## Sections
 
@@ -18,7 +18,7 @@ The interface features main section that you can selet on top:
 
 ### Launcher
 
-![admin interface](media/admin_interface_launcher.png)
+![admin interface](_media/admin_interface_launcher.png)
 
 The Launcher is the heart of the system. It controls which assets play on which clients.
 
@@ -53,7 +53,7 @@ This is simply the name that the admin user gave the asset
 
 ### Channels
 
-![channels](media/admin_interface_channels.png)
+![channels](_media/admin_interface_channels.png)
 
 The `Channels` section allows to set up channels. Channels lets you separate the audience. You can control what viewer see in each channel individually.
 
@@ -82,7 +82,7 @@ Attributes:
 
 ### Assets
 
-![assets](media/admin_interface_assets.png)
+![assets](_media/admin_interface_assets.png)
 
 #### Left side of the view
 
