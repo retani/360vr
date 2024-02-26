@@ -1,9 +1,12 @@
 # 360vr
 
-360vr is a system to control 360° Videos on multiple devices simulatenously and connect them via live audio conference rooms.
+360vr is a system to remotely control 360° Videos on multiple devices simulatenously and connect them via live audio conference rooms.
 
 ## Docs
 
+Read the [docs](https://retani.github.io/360vr/)
+
+or access the markdown files directly
 - [Intro](docs/README.md)
 - [Server Setup](docs/server_setup.md)
 - [Admin Interface](docs/admin_interface)
