@@ -6,12 +6,14 @@
   import Files from './Files.svelte';
   import Assets from './Assets.svelte';
   import Channels from './Channels.svelte';
+  import Settings from './Settings.svelte';
   import { useMatch } from "svelte-navigator";
 
   export let channels
   export let assets
   export let userStatus
   export let mediafiles
+  export let settings
 
   $: channels = channels.sort((a, b) => a.name.localeCompare(b.name))
   $: assets = assets.sort((a, b) => a.name.localeCompare(b.name))
@@ -21,6 +23,7 @@
   const files = useMatch("files")
   const assetsRoute = useMatch("assets/*")
   const channelsRoute = useMatch("channels/*")
+  const settingsRoute = useMatch("settings")
 
   let activeRoute = null
 
@@ -30,6 +33,7 @@
     else if ($files) activeRoute = "files"
     else if ($assetsRoute) activeRoute = "assets"
     else if ($channelsRoute) activeRoute = "channels"
+    else if ($settingsRoute) activeRoute = "settings"
   }
 
 </script>
@@ -53,6 +57,9 @@
     </div>  
     <div class="tab" class:active={$assetsRoute}>
       <Assets {assets} {mediafiles}/>
+    </div>
+    <div class="tab" class:active={$settingsRoute}>
+      <Settings {settings} />
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { UserStatus } from 'meteor/mizzao:user-status';
-import { Assets, Channels, Globals, Events } from '/imports/api/collections';
+import { Assets, Channels, Globals, Events, Settings } from '/imports/api/collections';
 import { MediaFiles } from '/imports/api/mediafileserver';
 
 const initialPlayState = {
@@ -215,6 +215,15 @@ Meteor.methods({
 
   deleteChannel({channelId}) {
     Channels.remove(channelId);
-  }
+  },
+
+  // set settings
+  // Meteor.call('updateSettings', currentSettings._id, {debugScreen: event.target.checked})
+  updateSettings(settingsId, data) {
+    console.log("updateSettings", settingsId, data);
+    Settings.update(settingsId, {
+      $set: data
+    });
+  },
 
 });

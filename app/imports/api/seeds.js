@@ -19,6 +19,10 @@ export const defaultAssets = [
   },
 ]
 
+export const defaultSettings = {
+  debugScreen: false,
+}
+
 const exampleAssets = [
   /*{
     type: 'scene', // audio, video, image

@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { UserStatus } from 'meteor/mizzao:user-status';
-import { Assets, Channels, Globals, Events, Files } from '/imports/api/collections';
+import { Assets, Channels, Globals, Events, Files, Settings } from '/imports/api/collections';
 
 // all channels
 Meteor.publish('channels.all', function () {
@@ -39,4 +39,9 @@ Meteor.publish('events.recent', function ({limit = 10}) {
 // files
 Meteor.publish('files.all', function () {
   return filesCollection.find().cursor;
+});
+
+// current settings
+Meteor.publish('settings.current', function () {
+  return Settings.find({}, {limit: 1});
 });

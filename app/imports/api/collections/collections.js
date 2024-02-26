@@ -8,3 +8,5 @@ export const Assets = new Mongo.Collection('assets');
 
 export const Events = new Mongo.Collection('events');
 
+export const Settings = new Mongo.Collection('settings');
+

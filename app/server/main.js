@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
-import { Assets, Channels, Globals } from '/imports/api/collections';
-import { defaultChannels, defaultAssets, channelTemplate } from '/imports/api/seeds';
+import { Assets, Channels, Globals, Settings } from '/imports/api/collections';
+import { defaultChannels, defaultAssets, channelTemplate, defaultSettings } from '/imports/api/seeds';
 import { startCron }  from '/imports/api/cron';
 
 import '/imports/api/env';
@@ -33,6 +33,12 @@ Meteor.startup(async () => {
       Assets.insert(asset);
     }
   }
+
+  // reset settings
+  // remove all settings
+  Settings.remove({});
+  // insert default settings
+  Settings.insert(defaultSettings);
 
   /*
   Meteor.setInterval(Meteor.bindEnvironment(() => {

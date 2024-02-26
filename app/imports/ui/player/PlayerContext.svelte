@@ -5,13 +5,14 @@
 
   import { Meteor } from "meteor/meteor";
   import { DDP } from 'meteor/ddp-client'
-  import { Channels } from '../../api/collections';
+  import { Channels, Settings } from '../../api/collections';
 
   export let slug
   export let preview
 
   let channelReady = false;
   let channel = writable(null);
+  let currentSettings = writable(null);
   let ddpStatus = writable('initializing')
   let connectionId = writable(null)
   let browserEvents = writable([])
@@ -20,6 +21,7 @@
   setContext('audioStatus', writable('disconnected'))
 
   setContext('channel', channel)
+  setContext('currentSettings', currentSettings)
   setContext('ddpStatus',ddpStatus)
   setContext('connectionId', connectionId)
   setContext('browserEvents', browserEvents)
@@ -49,6 +51,11 @@
     channelReady = Meteor.subscribe("channel", slug).ready();
     $channel = Channels.find({slug}).fetch()[0];
     updateConnectionId()
+  }
+
+  $m: {
+    Meteor.subscribe("settings.current");
+    $currentSettings = Settings.find().fetch()?.[0];
   }
 
   $m: {

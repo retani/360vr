@@ -14,7 +14,8 @@
     {to: "/admin/channels", route: 'channels', label: 'Channels'},
     {to: "/admin/assets", route: 'assets', label: 'Assets'},
     {to: "/admin/files", route: 'files', label: 'Media'},
-    {to: "/admin/viewers", route: 'viewers', label: 'Connections'}
+    {to: "/admin/viewers", route: 'viewers', label: 'Connections'},
+    {to: "/admin/settings", route: 'settings', label: 'Settings'}
   ]
 </script>
 
